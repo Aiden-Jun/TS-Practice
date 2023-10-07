@@ -1,8 +1,10 @@
 {
   "name": "frontend",
   "version": "1.0.0",
-  "scripts": {"build":"tsc --build",
-              "pretty":"npx prettier --write \"OOP-TS/**/*.ts\""},
+  "scripts": {
+    "br": "tsc --build && node dist/index.js",
+    "pretty": "npx prettier --write \"OOP-TS/**/*.ts\""
+  },
   "author": "Aiden",
   "license": "ISC",
   "dependencies": {
