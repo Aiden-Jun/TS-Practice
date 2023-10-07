@@ -8,6 +8,7 @@
 // npm install 명령어를 실행하세요
 // 과제를 진행하기 위해 feat/assignment-1 브랜치를 생성해주세요
 // 파이썬에서 만들었던 store 프로젝트를 타입스크립트로 구현하세요
+// 모르는 부분은 건너뛰고 수업 시간에 질문하세요
 // 과제가 끝나면 커밋을 생성하고 master 브랜치로 이동해서 master 브랜치를 pull 하세요
 // feat/assignment-1 브랜치로 이동한 후 master 브랜치를 merge 하세요
 // 완성된 feat/assignment-1 브랜치를 깃허브에 push 하세요
