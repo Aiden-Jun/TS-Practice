@@ -1,4 +1,7 @@
-class User {
+export interface IUser {
+  get Email(): string;
+}
+export default class User implements IUser {
   private email: string;
   private password: string;
   private nickname: string;
@@ -21,4 +24,3 @@ class User {
     return this.nickname;
   }
 }
-export default User;

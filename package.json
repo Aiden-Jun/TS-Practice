@@ -8,6 +8,7 @@
   "author": "Aiden",
   "license": "ISC",
   "dependencies": {
+    "csv-parser": "^3.0.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.2.2"
   },
