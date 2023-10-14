@@ -13,7 +13,7 @@ const doExample = async () => {
 
   // Database 사용법
   console.log('Database 예제를 실행합니다');
-  const db = new Database();
+  const db = Database.Instance;
   await db.writeCSV('example.csv', `${name},${age}`);
   const readContents = await db.readCSV('example.csv');
   console.log('example.csv에서 읽어온 콘텐츠: ', readContents);

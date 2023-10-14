@@ -10,8 +10,17 @@ export interface IDatabase {
 class Database implements IDatabase {
   private readonly dataFolderPath: string;
 
-  constructor() {
+  public static instance: Database;
+
+  private constructor() {
     this.dataFolderPath = path.join(__dirname, '../../OOP-TS/Data');
+  }
+
+  static get Instance() {
+    if (Database.instance === undefined) {
+      Database.instance = new Database();
+    }
+    return Database.instance;
   }
 
   readCSV = (filename: string) => {
