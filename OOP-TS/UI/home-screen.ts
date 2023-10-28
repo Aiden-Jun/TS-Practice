@@ -6,5 +6,10 @@ export interface IHomeScreen {
 }
 
 export default class HomeScreen implements IHomeScreen {
-  homeUI(loginUser: ILoginUser): void {}
+  private loggedUser: ILoginUser
+  homeUI(loginUser: ILoginUser): void {
+    console.log('This is main screen')
+    this.loggedUser = loginUser
+    if this.loggedUser
+  }
 }
