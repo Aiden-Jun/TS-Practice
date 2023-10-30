@@ -1,4 +1,5 @@
 import AuthService, {IAuthService} from './auth-service';
+import {IBaseService} from './base-service';
 
 export interface IService {
   get AuthService(): IAuthService;
@@ -7,9 +8,10 @@ export interface IService {
 export default class Service implements IService {
   public static instance: Service;
   private authService: IAuthService;
+  private serviceMap = new Map<string, IBaseService>();
 
   private constructor() {
-    this.authService = new AuthService();
+    this.serviceMap.set('service', new AuthService());
   }
 
   static get Instance() {
@@ -20,6 +22,6 @@ export default class Service implements IService {
   }
 
   get AuthService() {
-    return this.authService;
+    return this.serviceMap.get('service') as IAuthService;
   }
 }

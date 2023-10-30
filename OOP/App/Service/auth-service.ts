@@ -1,4 +1,5 @@
 import {ILoginUser} from '../Specification/interfaces';
+import BaseService from './base-service';
 
 export interface IAuthService {
   checkEmailExistence(entEmail: string): Promise<boolean>;
@@ -6,7 +7,7 @@ export interface IAuthService {
   getUser(): ILoginUser | undefined;
 }
 
-export default class AuthService implements IAuthService {
+export default class AuthService extends BaseService implements IAuthService {
   addUser(): void {}
   checkEmailExistence = async (): Promise<boolean> => {
     return true;

@@ -7,13 +7,13 @@ export interface IDatabase {
   writeCSV(filename: string, content: string): Promise<unknown>;
 }
 
-class Database implements IDatabase {
+export default class Database implements IDatabase {
   private readonly dataFolderPath: string;
 
   public static instance: Database;
 
   private constructor() {
-    this.dataFolderPath = path.join(__dirname, '../../OOP-TS/Data');
+    this.dataFolderPath = path.join(__dirname, '../../OOP/Data');
   }
 
   static get Instance() {
@@ -46,5 +46,3 @@ class Database implements IDatabase {
     });
   };
 }
-
-export default Database;
