@@ -1,4 +1,4 @@
-import Service, { IService } from '../Service/service';
+import Service, {IService} from '../Service/service';
 import {ILoginUser} from '../Specification/interfaces';
 import {inputReceiver} from '../utils';
 
@@ -9,11 +9,11 @@ export interface IAuthScreen {
 }
 
 export default class AuthScreen implements IAuthScreen {
-    private service: IService
+  private service: IService;
 
-    constructor() {
-        this.service = Service.Instance
-    }
+  constructor() {
+    this.service = Service.Instance;
+  }
 
   showOptionPrompt = async () => {
     console.log('Sign In (login)');
@@ -31,33 +31,33 @@ export default class AuthScreen implements IAuthScreen {
     console.log('\nSign Up');
 
     console.log('What kind of user are you? (buyer/seller)');
-    const userType = (await inputReceiver('>')).toLowerCase()
+    const userType = (await inputReceiver('>')).toLowerCase();
 
     if (userType !== 'buyer' && userType !== 'seller') {
-        console.log('Try Again!');
-        return false
+      console.log('Try Again!');
+      return false;
     }
 
-    console.log('Email')
-    const entEmail = await inputReceiver('>')
+    console.log('Email');
+    const entEmail = await inputReceiver('>');
 
-    if (await this.service.AuthService.checkEmailExistence(entEmail)) {}
+    if (await this.service.AuthService.checkEmailExistence(entEmail)) {
+    }
   };
 
   signInUI = async () => {
     console.log('\nSign In');
-    console.log('What kind of user are you? (buyer/seller)')
-    const userType = await inputReceiver('>')
+    console.log('What kind of user are you? (buyer/seller)');
+    const userType = await inputReceiver('>');
 
     if (userType != 'buyer' && userType != 'seller') {
-      console.log('Try Again')
-      return false
+      console.log('Try Again');
+      return false;
     }
-    console.log('Email')
-    const entEmail = await inputReceiver('>')
+    console.log('Email');
+    const entEmail = await inputReceiver('>');
 
-    if (this.service.AuthService())
-
-
+    if (this.service.AuthService()) {
+    }
   };
 }
