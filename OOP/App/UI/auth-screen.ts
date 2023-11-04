@@ -41,7 +41,7 @@ export default class AuthScreen implements IAuthScreen {
     console.log('Email')
     const entEmail = await inputReceiver('>')
 
-    if (this.service.AuthService.checkEmailExistence(entEmail))
+    if (await this.service.AuthService.checkEmailExistence(entEmail)) {}
   };
 
   signInUI = async () => {
@@ -55,9 +55,9 @@ export default class AuthScreen implements IAuthScreen {
     }
     console.log('Email')
     const entEmail = await inputReceiver('>')
-    
+
     if (this.service.AuthService())
-  
-  
+
+
   };
 }
