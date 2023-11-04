@@ -45,6 +45,19 @@ export default class AuthScreen implements IAuthScreen {
   };
 
   signInUI = async () => {
-    return undefined
+    console.log('\nSign In');
+    console.log('What kind of user are you? (buyer/seller)')
+    const userType = await inputReceiver('>')
+
+    if (userType != 'buyer' && userType != 'seller') {
+      console.log('Try Again')
+      return false
+    }
+    console.log('Email')
+    const entEmail = await inputReceiver('>')
+    
+    if (this.service.AuthService())
+  
+  
   };
 }
