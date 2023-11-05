@@ -35,38 +35,60 @@ const addThree = (number) => {
   return number + 3;
 };
 const customMap = (callback, iterable) => {
-  const newArray = [];
-  for (const el of iterable) {
-    newArray.push(callback(el));
+  let newArray = [];
+  for (const value of iterable) {
+    newArray.push(callback(value));
   }
   return newArray;
 };
 numbers = customMap(makeDouble, numbers);
 numbers = customMap(addThree, numbers);
-console.log(numbers);
 
 // 단계4
-// 위의 customMap 함수처럼 다양한 함수를 합성할 수 있는 추상적인 함수들을 더 만든다
+// 위의 customMap 함수처럼 다양한 함수를 합성할 수 있는 추상적인 함수들을 더 만들어 보자
+
+// 단계4 - filter
+numbers = [1, 2, 3];
 const customFilter = (callback, iterable) => {
   let result = [];
-  for (const el of iterable) {
-    if (callback(el)) {
-      result.push(el);
+  for (const value of iterable) {
+    if (callback(value)) {
+      result.push(value);
     }
   }
   return result;
 };
-const customReduce = (callback, acc, iterable) => {
-  for (const el of iterable) {
-    acc = callback(acc, el);
+numbers = customFilter((v) => (v > 1 ? true : false), numbers);
+console.log(numbers);
+
+// 단계4 - reduce
+numbers = [1, 2, 3];
+const customReduce = (callback, accumulate, iterable) => {
+  for (const value of iterable) {
+    accumulate = callback(accumulate, value);
   }
-  return acc;
+  return accumulate;
 };
+console.log(customReduce((acc, value) => acc + value, 0, numbers));
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// 실제 map, filter, reduce 사용해 보기
+numbers = numbers.map((v) => v * 2);
+numbers = numbers.filter((v) => (v > 1 ? true : false));
+console.log(numbers.reduce((acc, value) => acc + value, 0));
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // 단계5
-// 합성된 다양한 함수들을 연쇄적으로 합성할 수 있는 추상적인 함수 go, pipe 함수를 만든다
-const go = (initData, ...args) => customReduce((a, f) => f(a), initData, args);
-const pipe =
-  (f, ...fs) =>
-  (...as) =>
-    go(f(...as), ...fs);
+// 합성된 다양한 함수들을 연쇄적으로 합성해서 재사용성을 높이는데 도움을 주는 함수 go, pipe 함수를 만든다
+numbers = [1, 2, 3];
+const go = (initData, ...args) => customReduce((acc, func) => func(acc), initData, args);
+const fianlResult = go(
+  1,
+  (v) => v * 2,
+  (v) => v + 3,
+);
+console.log(fianlResult);

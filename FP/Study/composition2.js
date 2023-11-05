@@ -9,8 +9,8 @@ let numbers = [1, 2, 3];
 const customMap = (callback) => {
   return (array) => {
     const newArray = [];
-    for (const el of array) {
-      newArray.push(callback(array[i]));
+    for (const value of array) {
+      newArray.push(callback(value));
     }
     return newArray;
   };
@@ -24,39 +24,23 @@ const addThree = customMap((v) => {
 });
 numbers = addThree(numbers);
 
-// 커리
-// 평가 지연을 쉽게 만들어주는 추상적인 함수
-const curry =
-  (callback) =>
-  (a, ..._) =>
-    _.length ? callback(a, ..._) : (..._) => callback(a, ..._);
+const customReduce = (callback, accumulate, iterable) => {
+  for (const value of iterable) {
+    accumulate = callback(accumulate, value);
+  }
+  return accumulate;
+};
 
-// 커리를 적용한 다양한 추상 함수들
-const curriedMap = curry((callback, iterable) => {
-  let result = [];
-  for (const el of iterable) {
-    result.push(callback(el));
-  }
-  return result;
-});
-const curriedFilter = curry((callback, iterable) => {
-  let result = [];
-  for (const el of iterable) {
-    if (callback(el)) {
-      result.push(el);
-    }
-  }
-  return result;
-});
-const curriedReduce = curry((callback, acc, iterable) => {
-  if (!iterable) {
-    iterable = acc[Symbol.iterator]();
-    acc = iterable.next().value;
-  } else {
-    iterable = iterable[Symbol.iterator]();
-  }
-  for (const el of iterable) {
-    acc = callback(acc, el);
-  }
-  return acc;
-});
+const go = (initData, ...args) => customReduce((acc, func) => func(acc), initData, args);
+const pipe =
+  (f, ...fs) =>
+  (...as) =>
+    go(f(...as), ...fs);
+
+// 최종 버전
+const composedFunction = pipe(
+  (v) => v * 2,
+  (v) => v + 3,
+);
+const finalFunc = customMap(composedFunction);
+console.log(finalFunc([1, 2, 3]));

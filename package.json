@@ -2,7 +2,7 @@
   "name": "frontend",
   "version": "1.0.0",
   "scripts": {
-    "br": "tsc --build && node dist/index.js",
+    "br": "tsc --build && node dist/App/index.js",
     "pretty": "npx prettier --write \"OOP/**/*.ts\" \"FP/**/*.js\""
   },
   "author": "Aiden",

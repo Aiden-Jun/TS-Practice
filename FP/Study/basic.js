@@ -1,8 +1,8 @@
 // 1. 함수 ...args
-const func1 = (...args) => {
+function func1(...args) {
   // args는 배열이다
   return args[0];
-};
+}
 func1(1, 2, 3);
 
 // 2. 익명 함수
