@@ -42,7 +42,23 @@ export default class AuthScreen implements IAuthScreen {
     const entEmail = await inputReceiver('>');
 
     if (await this.service.AuthService.checkEmailExistence(entEmail)) {
+      console.log('Email provided already exists');
+      return false;
     }
+    console.log('Password');
+    const entPassword = await inputReceiver('>');
+
+    console.log('Re-Enter Password');
+    const reEntPassword = await inputReceiver('>');
+
+    if (entPassword != reEntPassword) {
+      console.log('Your passwords doies not match');
+      console.log('Try Again');
+      return False;
+    }
+
+    console.log('Name');
+    const entName = await inputReceiver('>');
   };
 
   signInUI = async () => {
