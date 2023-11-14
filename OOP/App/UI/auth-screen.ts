@@ -54,7 +54,7 @@ export default class AuthScreen implements IAuthScreen {
     if (entPassword != reEntPassword) {
       console.log('Your passwords doies not match');
       console.log('Try Again');
-      return False;
+      return false;
     }
 
     console.log('Name');

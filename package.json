@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "br": "tsc --build && node dist/App/index.js",
-    "pretty": "npx prettier --write \"OOP/**/*.ts\" \"FP/**/*.js\""
+    "pretty": "npx prettier --write \"OOP/**/*.ts\" \"FP/**/*.js\" \"Async/**/*.js\""
   },
   "author": "Aiden",
   "license": "ISC",
