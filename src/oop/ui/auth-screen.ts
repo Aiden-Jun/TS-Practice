@@ -1,6 +1,6 @@
 import Service, {IService} from '../service/service';
 import {ILoginUser} from '../specification/interfaces';
-import {inputReceiver} from "../../input";
+import {inputReceiver} from '../../input';
 
 export interface IAuthScreen {
   showOptionPrompt(): Promise<'login' | 'create' | undefined>;
