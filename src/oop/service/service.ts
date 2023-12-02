@@ -1,17 +1,20 @@
+import {IProduct} from '../specification/interfaces';
 import AuthService, {IAuthService} from './auth-service';
 import {IBaseService} from './base-service';
+import {IProductService, ProductService} from './product-service';
 
 export interface IService {
-  get AuthService(): IAuthService;
+  get Auth(): IAuthService;
+  get Product(): IProductService;
 }
 
 export default class Service implements IService {
   public static instance: Service;
-  private authService: IAuthService;
   private serviceMap = new Map<string, IBaseService>();
 
   private constructor() {
-    this.serviceMap.set('service', new AuthService());
+    this.serviceMap.set('auth', new AuthService());
+    this.serviceMap.set('product', new ProductService());
   }
 
   static get Instance() {
@@ -21,7 +24,11 @@ export default class Service implements IService {
     return Service.instance;
   }
 
-  get AuthService() {
-    return this.serviceMap.get('service') as IAuthService;
+  get Auth() {
+    return this.serviceMap.get('auth') as IAuthService;
+  }
+
+  get Product() {
+    return this.serviceMap.get('product') as IProductService;
   }
 }
