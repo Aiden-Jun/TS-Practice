@@ -5,5 +5,7 @@ export interface IBaseRepository {
 export class BaseRepository implements IBaseRepository {
   constructor() {}
 
-  save(domain) {}
+  save(domain) {
+    const row;
+  }
 }
