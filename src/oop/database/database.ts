@@ -3,8 +3,8 @@ import csvParser from 'csv-parser';
 import * as path from 'path';
 
 export interface IDatabase {
-  readCSV(filename: string): Promise<unknown>;
-  writeCSV(filename: string, content: string): Promise<unknown>;
+  readCSV(filename: string): Promise<string[][]>;
+  appendCSV(filename: string, content: string): Promise<boolean>;
 }
 
 export default class Database implements IDatabase {
@@ -24,18 +24,23 @@ export default class Database implements IDatabase {
   }
 
   readCSV = (filename: string) => {
-    return new Promise((resolve) => {
-      const results: string[] = [];
+    return new Promise<string[][]>((resolve) => {
+      const results: string[][] = [];
       fs.createReadStream(path.join(this.dataFolderPath, filename))
         .pipe(csvParser())
-        .on('data', (data: string) => results.push(data))
+        .on('data', (data: string) => {
+          results.push(data.split(','));
+        })
         .on('end', () => {
           resolve(results);
+        })
+        .on('error', () => {
+          resolve([]);
         });
     });
   };
-  writeCSV = (filename: string, content: string) => {
-    return new Promise((resolve) => {
+  appendCSV = (filename: string, content: string) => {
+    return new Promise<boolean>((resolve) => {
       const fileStream = fs.createWriteStream(path.join(this.dataFolderPath, filename), {
         flags: 'a',
       });

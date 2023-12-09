@@ -6,7 +6,14 @@ export default class User implements IUser {
   private password: string;
   private nickname: string;
 
-  constructor(email: string, password: string, nickname: string) {
+  constructor(
+    userID: string,
+    email: string,
+    password: string,
+    nickname: string,
+    money: number,
+    usertType: string,
+  ) {
     this.email = email;
     this.password = password;
     this.nickname = nickname;
