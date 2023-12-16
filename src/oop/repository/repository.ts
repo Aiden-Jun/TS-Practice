@@ -10,7 +10,7 @@ export class Repository implements IRepository {
   private userRepository: IUserRepository;
   private productRepository: IProductRepository;
 
-  static instance: IRepository;
+  private static instance: IRepository;
   static get Instance() {
     if (Repository.instance === undefined) {
       Repository.instance = new Repository();
@@ -19,7 +19,7 @@ export class Repository implements IRepository {
   }
 
   private constructor() {
-    this.userRepository = new UserRepository();
+    this.userRepository = new UserRepository('users.csv');
     this.productRepository = new ProductRepository();
   }
 

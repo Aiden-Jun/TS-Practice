@@ -15,5 +15,7 @@ export class ProductService implements IProductService {
     throw new Error();
   }
 
-  buyProductUsingID(productID: string, userID: string): Boolean {}
+  buyProductUsingID(productID: string, userID: string): boolean {
+    return true;
+  }
 }

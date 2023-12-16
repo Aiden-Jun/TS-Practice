@@ -15,19 +15,19 @@ const doExample = async () => {
   console.log('Database 예제를 실행합니다');
   const db = Database.Instance;
   await db.appendCSV('example.csv', `${name},${age}`);
-  const readContents = await db.readCSV('example.csv');
+  const readContents = await db.readCSV<{name: string; age: string}>('example.csv');
   console.log('example.csv에서 읽어온 콘텐츠: ', readContents);
   console.log('example.csv 파일을 열어보세요');
   console.log('==================================================');
 };
 
 const main = async () => {
-  await doExample();
+  //await doExample();
 
-  // oop
-  //console.log('store 앱을 실행합니다');
-  //const store = new Store();
-  //await store.init();
+  //oop
+  console.log('store 앱을 실행합니다');
+  const store = new Store();
+  await store.init();
 };
 
 main();

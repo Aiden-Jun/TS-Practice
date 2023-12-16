@@ -3,7 +3,7 @@ import csvParser from 'csv-parser';
 import * as path from 'path';
 
 export interface IDatabase {
-  readCSV(filename: string): Promise<string[][]>;
+  readCSV<T>(filename: string): Promise<T[]>;
   appendCSV(filename: string, content: string): Promise<boolean>;
 }
 
@@ -13,7 +13,8 @@ export default class Database implements IDatabase {
   public static instance: Database;
 
   private constructor() {
-    this.dataFolderPath = path.join(__dirname, '../../oop/data');
+    console.log(__dirname);
+    this.dataFolderPath = path.join(__dirname, '../../../src/oop/data');
   }
 
   static get Instance() {
@@ -23,13 +24,13 @@ export default class Database implements IDatabase {
     return Database.instance;
   }
 
-  readCSV = (filename: string) => {
-    return new Promise<string[][]>((resolve) => {
-      const results: string[][] = [];
+  readCSV = <T>(filename: string) => {
+    return new Promise<T[]>((resolve) => {
+      const results: T[] = [];
       fs.createReadStream(path.join(this.dataFolderPath, filename))
         .pipe(csvParser())
-        .on('data', (data: string) => {
-          results.push(data.split(','));
+        .on('data', (data: T) => {
+          results.push(data);
         })
         .on('end', () => {
           resolve(results);
@@ -39,12 +40,16 @@ export default class Database implements IDatabase {
         });
     });
   };
-  appendCSV = (filename: string, content: string) => {
+  appendCSV = async (filename: string, content: string) => {
+    const readFile = await this.readCSV(filename);
+    console.log(readFile);
+    const ID = readFile.length + 1;
+    console.log(ID);
     return new Promise<boolean>((resolve) => {
       const fileStream = fs.createWriteStream(path.join(this.dataFolderPath, filename), {
         flags: 'a',
       });
-      fileStream.write(`${content}\n`);
+      fileStream.write(`${ID},${content}\n`);
       fileStream.end(() => {
         resolve(true);
       });

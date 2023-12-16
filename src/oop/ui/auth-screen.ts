@@ -56,7 +56,7 @@ export default class AuthScreen implements IAuthScreen {
     console.log('Email');
     const entEmail = await inputReceiver('>');
 
-    if (this.service.Auth.doesThisEmailExist(entEmail)) {
+    if (await this.service.Auth.doesThisEmailExist(entEmail)) {
       console.log('Email provided already exists, try again.');
       return false;
     }

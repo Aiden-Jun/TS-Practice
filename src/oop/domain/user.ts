@@ -1,22 +1,23 @@
+import {TypeUser} from '../specification/types';
+
 export interface IUser {
   get Email(): string;
 }
 export default class User implements IUser {
   private email: string;
+  private userID: string;
   private password: string;
   private nickname: string;
+  private money: number;
+  private userType: string;
 
-  constructor(
-    userID: string,
-    email: string,
-    password: string,
-    nickname: string,
-    money: number,
-    usertType: string,
-  ) {
-    this.email = email;
-    this.password = password;
-    this.nickname = nickname;
+  constructor(userInformation: TypeUser) {
+    this.email = userInformation.email;
+    this.userID = userInformation.userID;
+    this.password = userInformation.password;
+    this.nickname = userInformation.nickname;
+    this.money = parseInt(userInformation.money);
+    this.userType = userInformation.userType;
   }
 
   get Email() {
