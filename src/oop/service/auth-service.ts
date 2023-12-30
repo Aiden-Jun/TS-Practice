@@ -4,7 +4,9 @@ import {ILoginUser} from '../specification/interfaces';
 
 export interface IAuthService {
   addUser(email: string, password: string, name: string, usertype: string): void;
+
   getUser(email: string, password: string): ILoginUser | undefined;
+
   doesThisEmailExist(email: string): Promise<boolean>;
 }
 
@@ -27,20 +29,21 @@ export default class AuthService implements IAuthService {
       return false;
     }
   }
+
   addUser(email: string, password: string, name: string, userType: string): void {
     const userRepository = this.repository.User;
     userRepository.createUser(email, password, name, userType);
   }
 
-  getUser(email, password, newName): ILoginUser | undefined {
+  getUser(email: string, password: string): ILoginUser | undefined {
     const user = this.userRepository.findUserByEmailAndPassword(email, password);
     if (user === null) {
       return;
     }
 
-    user.changeName(newName);
-
-    this.userRepository.save(user);
+    // user.changeName(newName);
+    //
+    // this.userRepository.save(user);
     return;
   }
 }

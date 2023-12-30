@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Store App</title>
+    <style>
+      /*
+       태그 {} : 모든 해당 태그에 동일한 스타일을 입힌다
+       .클래스 {} : 해당 클래스를 가진 모든 태그에 동일한 스타일을 입힌다
+       #아이디 {}: 해당 아이디를 가진 유일한 단 하나의 태그에 특정 스타일을 입힌다
+       */
+      .button {
+        width: 200px;
+        height: 40px;
+        padding: 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        border: 0px solid red;
+        border-radius: 10px;
+        color: #ffffff;
+        text-align: center;
+        cursor: pointer;
+        background-color: #2f2fff;
+      }
+      .auth-button {
+        background-color: #2f2fff;
+      }
+      #confirm-button {
+        background-color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <!--
+    태그의 디스플레이 속성은 크게 2가지로 분류된다
+    블록: 한 줄은 내가 다 차지한다: 마진, 보더, 패딩, 콘텐츠
+    인라인: 내가 진짜로 존재하는 공간만 딱 차지한다: 콘텐츠
+    -->
+    <div style="text-align: center" id="index-page">
+      <h1>Store App</h1>
+      <div class="button auth-button" id="sign-up-button">회원가입</div>
+      <div class="button auth-button">로그인</div>
+      <div class="button" id="confirm-button">확인</div>
+    </div>
+
+    <div style="text-align: center; display: none" id="sign-up-page">
+      <h1>회원 가입</h1>
+      <label>
+        <input type="email" id="email-input" />
+      </label>
+      <div class="button" id="back-button">뒤로 가기</div>
+    </div>
+
+    <script>
+      const windowWidth = window.innerWidth;
+      const buttonList = window.document.getElementsByClassName('button');
+      const buttonWidth = buttonList[0].clientWidth;
+      const calcMargin = (windowWidth - buttonWidth) / 2;
+      for (let i = 0; i < buttonList.length; i++) {
+        buttonList[i].style.marginLeft = `${calcMargin}px`;
+        buttonList[i].style.marginRight = `${calcMargin}px`;
+      }
+
+      const signUpButton = window.document.getElementById('sign-up-button');
+      const indexPage = window.document.getElementById('index-page');
+      const signUpPage = window.document.getElementById('sign-up-page');
+      signUpButton.addEventListener('click', () => {
+        indexPage.style.display = 'none';
+        signUpPage.style.display = 'block';
+      });
+
+      const emailInput = window.document.getElementById('email-input');
+      emailInput.addEventListener('input', () => {
+        console.log(emailInput.value);
+      });
+
+      const confirmButton = window.document.getElementById('confirm-button');
+    </script>
+  </body>
+</html>
