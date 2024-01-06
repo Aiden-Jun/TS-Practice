@@ -1,0 +1,17 @@
+import Database, {IDatabase} from '../database/database';
+
+export interface IBaseRepository {
+  save(domain: any): void;
+}
+
+export class BaseRepository implements IBaseRepository {
+  private fileName: string;
+  protected db: IDatabase;
+  constructor(fileName: string) {
+    this.fileName = fileName;
+    this.db = Database.Instance;
+  }
+  save(domain: any): void {
+    throw new Error('Method not implemented.');
+  }
+}

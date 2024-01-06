@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Store App</title>
     <style>
       /*
@@ -42,7 +43,6 @@
       <div class="button auth-button">로그인</div>
       <div class="button" id="confirm-button">확인</div>
     </div>
-
     <div style="text-align: center; display: none" id="sign-up-page">
       <h1>회원 가입</h1>
       <label>
@@ -50,31 +50,7 @@
       </label>
       <div class="button" id="back-button">뒤로 가기</div>
     </div>
-
-    <script>
-      const windowWidth = window.innerWidth;
-      const buttonList = window.document.getElementsByClassName('button');
-      const buttonWidth = buttonList[0].clientWidth;
-      const calcMargin = (windowWidth - buttonWidth) / 2;
-      for (let i = 0; i < buttonList.length; i++) {
-        buttonList[i].style.marginLeft = `${calcMargin}px`;
-        buttonList[i].style.marginRight = `${calcMargin}px`;
-      }
-
-      const signUpButton = window.document.getElementById('sign-up-button');
-      const indexPage = window.document.getElementById('index-page');
-      const signUpPage = window.document.getElementById('sign-up-page');
-      signUpButton.addEventListener('click', () => {
-        indexPage.style.display = 'none';
-        signUpPage.style.display = 'block';
-      });
-
-      const emailInput = window.document.getElementById('email-input');
-      emailInput.addEventListener('input', () => {
-        console.log(emailInput.value);
-      });
-
-      const confirmButton = window.document.getElementById('confirm-button');
-    </script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="module" src="../dist/index.js" />
   </body>
 </html>
