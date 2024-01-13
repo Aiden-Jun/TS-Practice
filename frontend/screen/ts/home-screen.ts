@@ -1,4 +1,4 @@
-import {ILoginUser} from '../specification/interfaces.js';
+import {ILoginUser} from '../../specification/interfaces.js';
 
 export interface IHomeScreen {
   homeUI(loginUser: ILoginUser): void;

@@ -1,6 +1,6 @@
 import AuthScreen, {IAuthScreen} from './auth-screen.js';
 import HomeScreen, {IHomeScreen} from './home-screen.js';
-import {ILoginUser} from '../specification/interfaces.js';
+import {ILoginUser} from '../../specification/interfaces.js';
 
 export interface IStore {
   init(): Promise<void>;

@@ -2,8 +2,9 @@
   "name": "frontend",
   "version": "1.0.0",
   "scripts": {
-    "dev": "tsc --build && node ./dist/index.js"
+    "dev": "tsc --build && node ./dist/screen/ts/index.js"
   },
+  "type": "module",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^20.11.0",

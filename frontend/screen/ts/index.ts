@@ -1,9 +1,6 @@
 const main = async () => {
-  // console.log('store 앱을 실행합니다');
-  // const store = new Store();
-  // await store.init();
-
   const windowWidth = window.innerWidth;
+
   const buttonList = window.document.getElementsByClassName(
     'button',
   ) as HTMLCollectionOf<HTMLElement>;
@@ -29,6 +26,36 @@ const main = async () => {
   });
 
   const confirmButton = window.document.getElementById('confirm-button');
+
+  // 서버 연결 테스트
+  const getButton = window.document.getElementById('get-button');
+  if (getButton) {
+    getButton.addEventListener('click', async () => {
+      const res = await fetch('http://localhost:3000', {
+        method: 'GET',
+      });
+      const result = await res.json();
+      console.log(result);
+    });
+  }
+
+  const postButton = window.document.getElementById('post-button');
+  if (postButton) {
+    postButton.addEventListener('click', async () => {
+      const res = await fetch('http://localhost:3000/login', {
+        method: 'POST', // GET POST PUT PATCH DELETE
+        headers: {
+          'content-type': 'application/x-www-form-urlencoded',
+        },
+        body: JSON.stringify({
+          email: 'xxx@xxx.com',
+          password: 1234,
+        }),
+      });
+      const result = await res.json();
+      console.log(result);
+    });
+  }
 };
 
 if (typeof window !== 'undefined') {
