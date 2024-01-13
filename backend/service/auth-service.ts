@@ -1,6 +1,6 @@
-import {IRepository, Repository} from '../repository/repository';
-import {IUserRepository, UserRepository} from '../repository/user-repository';
-import {ILoginUser} from '../specification/interfaces';
+import {IRepository, Repository} from '../repository/repository.js';
+import {IUserRepository, UserRepository} from '../repository/user-repository.js';
+import {ILoginUser} from '../specification/interfaces.js';
 
 export interface IAuthService {
   addUser(email: string, password: string, name: string, usertype: string): void;

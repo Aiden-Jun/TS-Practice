@@ -1,5 +1,5 @@
-import {IProductRepository, ProductRepository} from './product-repository';
-import {IUserRepository, UserRepository} from './user-repository';
+import {IProductRepository, ProductRepository} from './product-repository.js';
+import {IUserRepository, UserRepository} from './user-repository.js';
 
 export interface IRepository {
   get User(): IUserRepository;

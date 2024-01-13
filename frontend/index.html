@@ -1,8 +1,10 @@
-<!doctype html>       /*
-       태그 {} : 모든 해당 태그에 동일한 스타일을 입힌다
-       .클래스 {} : 해당 클래스를 가진 모든 태그에 동일한 스타일을 입힌다
-       #아이디 {}: 해당 아이디를 가진 유일한 단 하나의 태그에 특정 스타일을 입힌다
-       */
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Store App</title>
+    <style>
       .button {
         width: 200px;
         height: 40px;
@@ -26,10 +28,10 @@
   </head>
   <body>
     <!--
-    태그의 디스플레이 속성은 크게 2가지로 분류된다
-    블록: 한 줄은 내가 다 차지한다: 마진, 보더, 패딩, 콘텐츠
-    인라인: 내가 진짜로 존재하는 공간만 딱 차지한다: 콘텐츠
-    -->
+태그의 디스플레이 속성은 크게 2가지로 분류된다
+블록: 한 줄은 내가 다 차지한다: 마진, 보더, 패딩, 콘텐츠
+인라인: 내가 진짜로 존재하는 공간만 딱 차지한다: 콘텐츠
+-->
     <div style="text-align: center" id="index-page">
       <h1>Store App</h1>
       <div class="button auth-button" id="sign-up-button">회원가입</div>
@@ -44,6 +46,6 @@
       <div class="button" id="back-button">뒤로 가기</div>
     </div>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script type="module" src="../dist/index.js" />
+    <script type="module" src="./dist/index.js" />
   </body>
 </html>

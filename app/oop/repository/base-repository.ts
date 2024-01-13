@@ -1,4 +1,4 @@
-import Database, {IDatabase} from '../database/database';
+import Database, {IDatabase} from '../database/database.js';
 
 export interface IBaseRepository {
   save(domain: any): void;

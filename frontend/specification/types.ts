@@ -20,4 +20,4 @@ export type TypeProduct = {
   sellingStatus: string;
   sellerID: string;
   buyerID: string;
-}
+};

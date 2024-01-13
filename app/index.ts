@@ -1,6 +1,6 @@
-import Database from './oop/database/database';
-import Store from './oop/ui/store';
-import {inputReceiver} from './input';
+import Database from './oop/database/database.js';
+import Store from './oop/ui/store.js';
+import {inputReceiver} from './input.js';
 
 const doExample = async () => {
   console.log('==================================================');

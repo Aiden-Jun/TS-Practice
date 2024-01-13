@@ -1,4 +1,4 @@
-import {TypeUser} from '../specification/types';
+import {TypeUser} from '../specification/types.js';
 
 export interface IUser {
   get Email(): string;

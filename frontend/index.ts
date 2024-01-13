@@ -1,5 +1,3 @@
-// import Store from './oop/ui/store';
-
 const main = async () => {
   // console.log('store 앱을 실행합니다');
   // const store = new Store();

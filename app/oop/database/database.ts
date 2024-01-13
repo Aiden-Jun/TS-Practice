@@ -13,6 +13,7 @@ export default class Database implements IDatabase {
   public static instance: Database;
 
   private constructor() {
+    const __dirname = path.resolve();
     console.log(__dirname);
     this.dataFolderPath = path.join(__dirname, '../../../src/oop/data');
   }

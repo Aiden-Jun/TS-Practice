@@ -1,6 +1,5 @@
-import {IProduct} from '../specification/interfaces';
-import AuthService, {IAuthService} from './auth-service';
-import {IProductService, ProductService} from './product-service';
+import AuthService, {IAuthService} from './auth-service.js';
+import {IProductService, ProductService} from './product-service.js';
 
 export interface IService {
   get Auth(): IAuthService;

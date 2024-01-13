@@ -1,7 +1,6 @@
-import {createAbstractBuilder} from 'typescript';
-import {ILoginUser} from '../specification/interfaces';
-import Service, {IService} from '../service/service';
-import {inputReceiver} from '../../input';
+import {ILoginUser} from '../specification/interfaces.js';
+import Service, {IService} from '../service/service.js';
+import {inputReceiver} from '../../input.js';
 
 export interface IHomeScreen {
   homeUI(loginUser: ILoginUser): void;

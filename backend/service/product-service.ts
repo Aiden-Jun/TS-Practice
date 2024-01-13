@@ -1,4 +1,4 @@
-import {IProduct} from '../specification/interfaces';
+import {IProduct} from '../specification/interfaces.js';
 
 export interface IProductService {
   getBuyProducts(userID: string): IProduct[];

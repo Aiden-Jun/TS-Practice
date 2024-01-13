@@ -1,6 +1,6 @@
-import User from '../domain/user';
-import {TypeUser} from '../specification/types';
-import {BaseRepository} from './base-repository';
+import User from '../domain/user.js';
+import {TypeUser} from '../specification/types.js';
+import {BaseRepository} from './base-repository.js';
 
 export interface IUserRepository {
   createUser(email: string, password: string, name: string, userType: string): void;
