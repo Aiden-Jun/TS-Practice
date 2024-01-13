@@ -11,3 +11,13 @@ export type TypeUser = {
   money: string;
   userType: string;
 };
+
+export type TypeProduct = {
+  productID: string;
+  productName: string;
+  productDescription: string;
+  productPrice: string;
+  sellingStatus: string;
+  sellerID: string;
+  buyerID: string;
+}
