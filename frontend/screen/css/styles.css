@@ -1,0 +1,31 @@
+.button {
+  width: 200px;
+  height: 20px;
+  padding: 10px;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 0px solid red;
+  border-radius: 10px;
+  color: #ffffff;
+  text-align: center;
+  cursor: pointer;
+  background-color: #2f2fff;
+}
+
+.auth-button {
+  background-color: #2f2fff;
+}
+
+.input-auth {
+  width: 200px;
+  padding: 8px;
+  border-radius: 5px;
+  margin: auto;
+  margin-bottom: 10px;
+  display: block;
+}
+
+#confirm-button {
+  background-color: black;
+}

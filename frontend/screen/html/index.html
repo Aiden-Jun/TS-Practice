@@ -4,27 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Store App</title>
-    <style>
-      .button {
-        width: 200px;
-        height: 40px;
-        padding: 10px;
-        margin-top: 10px;
-        margin-bottom: 10px;
-        border: 0px solid red;
-        border-radius: 10px;
-        color: #ffffff;
-        text-align: center;
-        cursor: pointer;
-        background-color: #2f2fff;
-      }
-      .auth-button {
-        background-color: #2f2fff;
-      }
-      #confirm-button {
-        background-color: black;
-      }
-    </style>
+    <link rel="stylesheet" href="../css/styles.css" />
   </head>
   <body>
     <!--
@@ -32,21 +12,30 @@
 블록: 한 줄은 내가 다 차지한다: 마진, 보더, 패딩, 콘텐츠
 인라인: 내가 진짜로 존재하는 공간만 딱 차지한다: 콘텐츠
 -->
-    <div style="text-align: center" id="index-page">
+    <div style="text-align: center; display: block" id="index-page">
       <h1>Store App</h1>
       <div class="button auth-button" id="sign-up-button">회원가입</div>
-      <div class="button auth-button">로그인</div>
-      <div class="button" id="confirm-button">확인</div>
-      <div class="button" id="get-button">서버 GET 테스트</div>
-      <div class="button" id="post-button">서버 POST 테스트</div>
+      <div class="button auth-button" id="login-button">로그인</div>
     </div>
+
+    <!--Sign Up Screen-->
     <div style="text-align: center; display: none" id="sign-up-page">
       <h1>회원 가입</h1>
       <label>
-        <input type="email" id="email-input" />
+        <input type="email" id="email-input-signup" />
       </label>
-      <div class="button" id="back-button">뒤로 가기</div>
+      <div class="button" id="back-button-signup">뒤로 가기</div>
     </div>
-    <script type="module" src="../../dist/screen/ts/index.js" />
+
+    <!--Log in Screen-->
+    <div style="text-align: center; display: none" id="login-page">
+      <h1 id="login-title">Login</h1>
+      <input class="input-auth" type="email" placeholder="Email" id="email-input" />
+      <input class="input-auth" type="password" placeholder="Password" id="password-input" />
+      <div class="button" id="login-button-in">Login</div>
+      <div class="button" id="back-button-login">뒤로 가기</div>
+    </div>
+
+    <script type="module" src="../../dist/screen/ts/index.js"></script>
   </body>
 </html>

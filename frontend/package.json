@@ -2,7 +2,7 @@
   "name": "frontend",
   "version": "1.0.0",
   "scripts": {
-    "dev": "tsc --build && node ./dist/screen/ts/index.js"
+    "dev": "tsc --build"
   },
   "type": "module",
   "license": "ISC",
