@@ -22,7 +22,7 @@ app.post('/login', parseBody, async (req, res) => {
   const {email, password} = req.body;
   console.log(email);
   console.log(password);
-  const loginUser = authService.getUser(email, password);
+  const loginUser = await authService.getUser(email, password);
   return res.json(loginUser);
 });
 app.post('/sign-up', parseBody, async (req, res) => {

@@ -5,7 +5,7 @@ import {ILoginUser} from '../specification/interfaces.js';
 export interface IAuthService {
   addUser(email: string, password: string, name: string, usertype: string): void;
 
-  getUser(email: string, password: string): ILoginUser | undefined;
+  getUser(email: string, password: string): Promise<ILoginUser | undefined>;
 
   doesThisEmailExist(email: string): Promise<boolean>;
 }
@@ -35,15 +35,12 @@ export default class AuthService implements IAuthService {
     userRepository.createUser(email, password, name, userType);
   }
 
-  getUser(email: string, password: string): ILoginUser | undefined {
-    const user = this.userRepository.findUserByEmailAndPassword(email, password);
-    if (user === null) {
+  async getUser(email: string, password: string): Promise<ILoginUser | undefined> {
+    const user = await this.userRepository.findUserByEmailAndPassword(email, password);
+    if (user === undefined) {
       return;
     }
 
-    // user.changeName(newName);
-    //
-    // this.userRepository.save(user);
-    return;
+    return user.LoginUser;
   }
 }

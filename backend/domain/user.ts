@@ -1,3 +1,4 @@
+import {ILoginUser} from '../specification/interfaces.js';
 import {TypeUser} from '../specification/types.js';
 
 export interface IUser {
@@ -30,5 +31,16 @@ export default class User implements IUser {
 
   get Nickname() {
     return this.nickname;
+  }
+
+  get LoginUser(): ILoginUser {
+    const loginUser = {
+      email: this.email,
+      nickname: this.nickname,
+      userType: this.userType,
+      money: this.money,
+      id: this.userID,
+    };
+    return loginUser;
   }
 }

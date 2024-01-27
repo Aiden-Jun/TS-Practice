@@ -13,8 +13,19 @@ export class UserRepository extends BaseRepository implements IUserRepository {
   findUserByID(id: string): Promise<User | undefined> {
     throw new Error('Method not implemented.');
   }
-  findUserByEmailAndPassword(email: string, password: string): Promise<User | undefined> {
-    throw new Error('Method not implemented.');
+  public async findUserByEmailAndPassword(
+    email: string,
+    password: string,
+  ): Promise<User | undefined> {
+    const userRows = await this.db.readCSV<TypeUser>('users.csv');
+    for (let i = 0; i < userRows.length; i++) {
+      let userRow = userRows[i];
+
+      if (userRow.email == email && userRow.password == password) {
+        console.log(this.convertUserFromRowToObject(userRow));
+        return this.convertUserFromRowToObject(userRow);
+      }
+    }
   }
   public createUser(email: string, password: string, name: string, userType: string) {
     this.db.appendCSV('users.csv', `${email},${password},${name},0,${userType}`);

@@ -12,7 +12,7 @@
 블록: 한 줄은 내가 다 차지한다: 마진, 보더, 패딩, 콘텐츠
 인라인: 내가 진짜로 존재하는 공간만 딱 차지한다: 콘텐츠
 -->
-    <div style="text-align: center; display: block" id="index-page">
+    <div style="text-align: center; display: none" id="index-page">
       <h1>Store App</h1>
       <div class="button auth-button" id="sign-up-button">회원가입</div>
       <div class="button auth-button" id="login-button">로그인</div>
@@ -24,7 +24,7 @@
       <label>
         <input type="email" id="email-input-signup" />
       </label>
-      <div class="button" id="back-button-signup">뒤로 가기</div>
+      <div class="button back-button" id="back-button-signup">뒤로 가기</div>
     </div>
 
     <!--Log in Screen-->
@@ -33,7 +33,16 @@
       <input class="input-auth" type="email" placeholder="Email" id="email-input" />
       <input class="input-auth" type="password" placeholder="Password" id="password-input" />
       <div class="button" id="login-button-in">Login</div>
-      <div class="button" id="back-button-login">뒤로 가기</div>
+      <div class="button back-button" id="back-button-login">뒤로 가기</div>
+    </div>
+
+    <!--Home screen-->
+    <div style="text-align: center; display: block" id="home-page">
+      <h1 id="home-title">Home Screen</h1>
+      <h1>$100</h1>
+      <h2 id="nick-name">NickName</h2>
+      <h3>Buyer</h3>
+      <div class="button" id="home-logout-button">Log out</div>
     </div>
 
     <script type="module" src="../../dist/screen/ts/index.js"></script>

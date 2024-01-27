@@ -4,16 +4,24 @@ const main = async () => {
   const signUpButton = window.document.getElementById('sign-up-button');
   const loginButton = window.document.getElementById('login-button');
   const loginButtonIn = window.document.getElementById('login-button-in');
-  const backButton = window.document.getElementById('back-button-login');
+  const backButtons = window.document.getElementsByClassName('back-button');
+
   const loginPage = window.document.getElementById('login-page');
   const indexPage = window.document.getElementById('index-page');
   const signUpPage = window.document.getElementById('sign-up-page');
   const emailInput = window.document.getElementById('email-input') as HTMLInputElement;
   const passwordInput = window.document.getElementById('password-input') as HTMLInputElement;
 
-  if (signUpButton) {
+  const setUserProfile = () => {
+    const nickNameProfile = window.document.getElementById('nick-name');
+    nickNameProfile!.textContent = 'ASDBJBJBJBJ';
+  };
+  setUserProfile();
+
+  if (signUpButton && indexPage && signUpPage) {
     signUpButton.addEventListener('click', () => {
-      location.href = 'auth.html';
+      indexPage.style.display = 'none';
+      signUpPage.style.display = 'block';
     });
   }
 
@@ -42,11 +50,14 @@ const main = async () => {
     });
   }
 
-  if (backButton && indexPage && loginPage) {
-    backButton.addEventListener('click', () => {
-      loginPage.style.display = 'none';
-      indexPage.style.display = 'block';
-    });
+  if (backButtons && indexPage && loginPage && signUpPage) {
+    for (let i = 0; i < backButtons.length; i++) {
+      backButtons[i].addEventListener('click', () => {
+        signUpPage.style.display = 'none';
+        loginPage.style.display = 'none';
+        indexPage.style.display = 'block';
+      });
+    }
   }
 
   emailInput.addEventListener('input', () => {

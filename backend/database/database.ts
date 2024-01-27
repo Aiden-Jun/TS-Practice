@@ -14,7 +14,7 @@ export default class Database implements IDatabase {
 
   private constructor() {
     const __dirname = path.resolve();
-    this.dataFolderPath = path.join(__dirname, '../../../src/oop/data');
+    this.dataFolderPath = path.join(__dirname, '../backend/data/');
   }
 
   static get Instance() {

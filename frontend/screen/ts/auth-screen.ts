@@ -1,80 +1,77 @@
 import {ILoginUser} from '../../specification/interfaces.js';
 
 export interface IAuthScreen {
-  showOptionPrompt(): Promise<'login' | 'create' | undefined>;
-  signInUI(): Promise<ILoginUser | undefined>;
-  signUpUI(): Promise<boolean>;
+  showIndexPage(): void;
+  showSignInPage(): void;
+  showSignUpPage(): void;
 }
 
 export default class AuthScreen implements IAuthScreen {
-  constructor() {}
+  private indexPage: HTMLElement | null;
+  private loginPage: HTMLElement | null;
+  private signUpPage: HTMLElement | null;
 
-  showOptionPrompt = async () => {
-    // console.log('Sign In (login)');
-    // console.log('Sign Up (create)');
-    // // const choice = (await inputReceiver('>')).toLowerCase();
-    //
-    // if (choice === 'login' || choice === 'create') {
-    //   return choice;
-    // } else {
-    //   this.showOptionPrompt();
-    // }
-    throw new Error();
+  private signUpButton: HTMLElement | null;
+  private loginButton: HTMLElement | null;
+  private loginButtonIn: HTMLElement | null;
+  private backButtons: HTMLCollectionOf<Element> | null;
+
+  private emailInput: HTMLElement | null;
+  private passwordInput: HTMLElement | null;
+
+  constructor() {
+    this.indexPage = window.document.getElementById('index-page');
+    this.loginPage = window.document.getElementById('login-page');
+    this.signUpPage = window.document.getElementById('sign-up-page');
+
+    this.signUpButton = window.document.getElementById('sign-up-button');
+    this.loginButton = window.document.getElementById('login-button');
+    this.loginButtonIn = window.document.getElementById('login-button-in');
+    this.backButtons = window.document.getElementsByClassName('back-button');
+
+    this.emailInput = window.document.getElementById('email-input') as HTMLInputElement;
+    this.passwordInput = window.document.getElementById('password-input') as HTMLInputElement;
+  }
+
+  showIndexPage = () => {
+    if (this.indexPage && this.loginPage && this.signUpPage) {
+      this.indexPage.style.display = 'block';
+      this.loginPage.style.display = 'none';
+      this.signUpPage.style.display = 'none';
+    }
   };
 
-  signInUI = async () => {
-    // console.log('Sign In');
-    //
-    // console.log('Email');
-    // const entEmail = await inputReceiver('>');
-    //
-    // console.log('Password');
-    // const entPassword = await inputReceiver('>');
-    //
-    // const user = this.service.Auth.getUser(entEmail, entPassword);
-    // if (user) {
-    //   console.log(`Hello ${user.nickname}`);
-    //   return user;
-    // }
-    // return;
-    throw new Error();
+  showSignInPage = () => {
+    if (this.indexPage && this.loginPage && this.signUpPage) {
+      this.indexPage.style.display = 'none';
+      this.loginPage.style.display = 'block';
+      this.signUpPage.style.display = 'none';
+    }
   };
 
-  signUpUI = async () => {
-    // console.log('\nSign Up');
-    // console.log('What kind of user are you? (buyer/seller)');
-    // const userType = await inputReceiver('>');
-    //
-    // if (userType != 'buyer' && userType != 'seller') {
-    //   console.log('Try Again');
-    //   return false;
-    // }
-    // console.log('Email');
-    // const entEmail = await inputReceiver('>');
-    //
-    // if (await this.service.Auth.doesThisEmailExist(entEmail)) {
-    //   console.log('Email provided already exists, try again.');
-    //   return false;
-    // }
-    //
-    // console.log('Password');
-    // const entPassword = await inputReceiver('>');
-    //
-    // console.log('Re-Enter Password');
-    // const reEntPassword = await inputReceiver('>');
-    //
-    // if (entPassword !== reEntPassword) {
-    //   console.log('Your passwords does not match.');
-    //   console.log('Try Again');
-    //   return false;
-    // }
-    //
-    // console.log('Name');
-    // const entName = await inputReceiver('>');
-    //
-    // this.service.Auth.addUser(entEmail, entPassword, entName, userType);
-    // console.log('Done, now sign in');
+  signIn = () => {
+    loginButtonIn.addEventListener('click', async () => {
+      console.log(emailInput.value);
+      const res = await fetch('http://localhost:3000/login', {
+        method: 'POST', // GET POST PUT PATCH DELETE
+        headers: {
+          'content-type': 'application/x-www-form-urlencoded',
+        },
+        body: JSON.stringify({
+          email: emailInput.value,
+          password: passwordInput.value,
+        }),
+      });
+      const result = await res.json();
+      console.log(result);
+    });
+  };
 
-    return true;
+  showSignUpPage = () => {
+    if (this.indexPage && this.loginPage && this.signUpPage) {
+      this.indexPage.style.display = 'none';
+      this.loginPage.style.display = 'none';
+      this.signUpPage.style.display = 'block';
+    }
   };
 }
