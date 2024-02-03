@@ -18,6 +18,7 @@ export class UserRepository extends BaseRepository implements IUserRepository {
     password: string,
   ): Promise<User | undefined> {
     const userRows = await this.db.readCSV<TypeUser>('users.csv');
+    console.log(userRows);
     for (let i = 0; i < userRows.length; i++) {
       let userRow = userRows[i];
 

@@ -23,7 +23,8 @@ app.post('/login', parseBody, async (req, res) => {
   console.log(email);
   console.log(password);
   const loginUser = await authService.getUser(email, password);
-  return res.json(loginUser);
+  console.log(loginUser);
+  return res.json({user: loginUser});
 });
 app.post('/sign-up', parseBody, async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');

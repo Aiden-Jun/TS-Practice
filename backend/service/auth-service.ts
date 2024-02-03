@@ -40,6 +40,7 @@ export default class AuthService implements IAuthService {
     if (user === undefined) {
       return;
     }
+    console.log(user);
 
     return user.LoginUser;
   }

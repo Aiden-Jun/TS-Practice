@@ -7,9 +7,12 @@ export interface IHomeScreen {
 
 export default class HomeScreen implements IHomeScreen {
   private loggedUser: ILoginUser | undefined;
+  private homePage: HTMLElement | null;
+
   // private service: IService;
   constructor() {
-    // this.service = Service.Instance;
+    this.homePage = window.document.getElementById('home-page');
+    this.loggedUser;
   }
   homeUI(loginUser: ILoginUser): void {
     console.log('This is main screen');
@@ -59,4 +62,14 @@ export default class HomeScreen implements IHomeScreen {
     //   this.buyerMainUI();
     // }
   }
+  setUserProfile = (user: ILoginUser) => {
+    const nickNameProfile = window.document.getElementById('nick-name');
+    nickNameProfile!.textContent = user.nickname;
+    this.loggedUser = user;
+  };
+  showHomePage = () => {
+    if (this.homePage) {
+      this.homePage.style.display = 'block';
+    }
+  };
 }
