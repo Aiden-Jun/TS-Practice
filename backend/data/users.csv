@@ -1,3 +1,4 @@
 userID,email,password,nickname,money,userType
 1,bird.com,bird,Bird,0,buyer
 2,123,123,123,0,seller
+3,q,q,q,0,seller

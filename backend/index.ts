@@ -20,17 +20,15 @@ app.get('/', (req, res) => {
 app.post('/login', parseBody, async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   const {email, password} = req.body;
-  console.log(email);
-  console.log(password);
   const loginUser = await authService.getUser(email, password);
-  console.log(loginUser);
   return res.json({user: loginUser});
 });
 app.post('/sign-up', parseBody, async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  const {email, password} = req.body;
+  const {email, password, nickname, userType, money} = req.body;
+  const isSignedUp = authService.addUser(email, password, nickname, userType);
   return res.json({
-    message: 'post 확인 성공',
+    isSignedUp,
   });
 });
 

@@ -4,14 +4,8 @@ export interface IAuthScreen {
   showIndexPage(): void;
   showSignInPage(): void;
   showSignUpPage(): void;
-  signIn(email: string, password: string): Promise<ILoginUser | undefined>;
-  signUp(
-    email: string,
-    password: string,
-    nickname: string,
-    userType: 'seller' | 'buyer',
-    money: number,
-  ): Promise<boolean>;
+  signIn(): Promise<ILoginUser | undefined>;
+  signUp(): Promise<boolean>;
   turnOff(): void;
 }
 export default class AuthScreen implements IAuthScreen {
@@ -22,7 +16,6 @@ export default class AuthScreen implements IAuthScreen {
   private signUpButton: HTMLElement;
   private signUpButtonIn: HTMLElement;
   private loginButton: HTMLElement;
-  private loginButtonIn: HTMLElement;
   private backButtons: HTMLCollectionOf<Element>;
 
   private nickname: HTMLInputElement;
@@ -42,7 +35,6 @@ export default class AuthScreen implements IAuthScreen {
     this.signUpButton = window.document.getElementById('sign-up-button') as HTMLElement;
     this.signUpButtonIn = window.document.getElementById('sign-up-button-in') as HTMLElement;
     this.loginButton = window.document.getElementById('login-button') as HTMLElement;
-    this.loginButtonIn = window.document.getElementById('login-button-in') as HTMLElement;
     this.backButtons = window.document.getElementsByClassName(
       'back-button',
     ) as HTMLCollectionOf<Element>;
@@ -53,7 +45,7 @@ export default class AuthScreen implements IAuthScreen {
     this.passwordInputSignUp = window.document.getElementById(
       'password-input-signup',
     ) as HTMLInputElement;
-    this.nickname = window.document.getElementById('nickname') as HTMLInputElement;
+    this.nickname = window.document.getElementById('nick-name-signup') as HTMLInputElement;
     this.userType = window.document.getElementById('user-type') as HTMLInputElement;
     this.money = window.document.getElementById('money') as HTMLInputElement;
     this.emailInput = window.document.getElementById('email-input') as HTMLInputElement;
@@ -79,27 +71,13 @@ export default class AuthScreen implements IAuthScreen {
         alert('wrong usertype');
         return;
       }
-      const result = await this.signUp(
-        this.emailInputSignUp.value,
-        this.passwordInputSignUp.value,
-        this.nickname.value,
-        this.userType.value,
-        parseInt(this.money.value),
-      );
-
-      if (result) {
+      const isSignedUp = await this.signUp();
+      if (isSignedUp) {
+        alert('회원 가입에 성공했습니다');
+        this.showIndexPage();
       } else {
-      }
-    });
-    this.loginButtonIn.addEventListener('click', async () => {
-      const user = await this.signIn(this.emailInput.value, this.passwordInput.value);
-      console.log(user);
-      if (user === undefined) {
-        alert('Bad email or password');
-      } else {
-        this.turnOff();
-        // this.setUserProfile(user);
-        // this.showHomePage();
+        alert('회원 가입에 실패했습니다');
+        this.showIndexPage();
       }
     });
   }
@@ -136,39 +114,38 @@ export default class AuthScreen implements IAuthScreen {
     }
   }
 
-  async signIn(email: string, password: string) {
+  async signIn() {
     const res = await fetch('http://localhost:3000/login', {
       method: 'POST', // GET POST PUT PATCH DELETE
       headers: {
         'content-type': 'application/x-www-form-urlencoded',
       },
       body: JSON.stringify({
-        email,
-        password,
+        email: this.emailInput.value,
+        password: this.passwordInput.value,
       }),
     });
     const {user}: {user: ILoginUser | undefined} = await res.json();
     return user;
   }
 
-  async signUp(
-    email: string,
-    password: string,
-    nickname: string,
-    userType: 'seller' | 'buyer',
-    money: number,
-  ) {
+  async signUp() {
+    if (this.userType.value !== 'seller' || this.userType.value !== 'seller') {
+      alert('wrong usertype');
+      return false;
+    }
+
     const res = await fetch('http://localhost:3000/sign-up', {
       method: 'POST', // GET POST PUT PATCH DELETE
       headers: {
         'content-type': 'application/x-www-form-urlencoded',
       },
       body: JSON.stringify({
-        email,
-        password,
-        nickname,
-        userType,
-        money,
+        email: this.emailInputSignUp.value,
+        password: this.passwordInputSignUp.value,
+        nickname: this.nickname.value,
+        userType: this.userType.value,
+        money: parseInt(this.money.value),
       }),
     });
     const {isSignedUp}: {isSignedUp: boolean} = await res.json();
