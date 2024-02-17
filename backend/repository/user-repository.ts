@@ -3,7 +3,7 @@ import {TypeUser} from '../specification/types.js';
 import {BaseRepository} from './base-repository.js';
 
 export interface IUserRepository {
-  createUser(email: string, password: string, name: string, userType: string): void;
+  createUser(email: string, password: string, name: string, userType: string, money: string): void;
   findUserByEmail(email: string): Promise<User | undefined>;
   findUserByID(id: string): Promise<User | undefined>;
   findUserByEmailAndPassword(email: string, password: string): Promise<User | undefined>;
@@ -28,8 +28,14 @@ export class UserRepository extends BaseRepository implements IUserRepository {
       }
     }
   }
-  public createUser(email: string, password: string, name: string, userType: string) {
-    this.db.appendCSV('users.csv', `${email},${password},${name},0,${userType}`);
+  public createUser(
+    email: string,
+    password: string,
+    name: string,
+    userType: string,
+    money: string,
+  ) {
+    this.db.appendCSV('users.csv', `${email},${password},${name},${money},${userType}`);
   }
 
   public async findUserByEmail(email: string) {

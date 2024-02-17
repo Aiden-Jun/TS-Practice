@@ -26,9 +26,13 @@ app.post('/login', parseBody, async (req, res) => {
 app.post('/sign-up', parseBody, async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   const {email, password, nickname, userType, money} = req.body;
-  const isSignedUp = authService.addUser(email, password, nickname, userType);
+  if (await authService.doesThisEmailExist(email)) {
+    return res.json({message: 'The email provided already exists.', isSignedUp: false});
+  }
+  authService.addUser(email, password, nickname, userType, money);
   return res.json({
-    isSignedUp,
+    message: 'Sucess',
+    isSignedUp: true,
   });
 });
 

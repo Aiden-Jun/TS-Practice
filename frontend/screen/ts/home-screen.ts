@@ -5,14 +5,16 @@ export interface IHomeScreen {
   buyerMainUI(): void;
   setUserProfile(user: ILoginUser): void;
   showHomePage(): void;
+  logout(): void;
+  turnOff(): void;
 }
 
 export default class HomeScreen implements IHomeScreen {
   private loggedUser: ILoginUser | undefined;
-  private homePage: HTMLElement | null;
+  private homePage: HTMLElement;
 
   constructor() {
-    this.homePage = window.document.getElementById('home-page');
+    this.homePage = window.document.getElementById('home-page') as HTMLElement;
     this.loggedUser;
   }
 
@@ -65,12 +67,24 @@ export default class HomeScreen implements IHomeScreen {
   }
   setUserProfile = (user: ILoginUser) => {
     const nickNameProfile = window.document.getElementById('nick-name');
+    const moneyAmountHome = window.document.getElementById('money-amount-home');
+    const userTypeHome = window.document.getElementById('user-type-home');
     nickNameProfile!.textContent = user.nickname;
+    moneyAmountHome!.textContent = '$' + user.money;
+    userTypeHome!.textContent = user.userType;
     this.loggedUser = user;
   };
   showHomePage = () => {
     if (this.homePage) {
       this.homePage.style.display = 'block';
     }
+  };
+
+  logout = () => {
+    this.loggedUser = undefined;
+  };
+
+  turnOff = () => {
+    this.homePage.style.display = 'none';
   };
 }

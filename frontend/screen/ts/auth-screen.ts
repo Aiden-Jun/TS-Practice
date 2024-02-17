@@ -66,19 +66,13 @@ export default class AuthScreen implements IAuthScreen {
     this.signUpButton.addEventListener('click', () => {
       this.showSignUpPage();
     });
+    this.userType.addEventListener('input', () => {
+      console.log(this.userType.value);
+    });
     this.signUpButtonIn.addEventListener('click', async () => {
-      if (this.userType.value !== 'seller' || this.userType.value !== 'seller') {
-        alert('wrong usertype');
-        return;
-      }
-      const isSignedUp = await this.signUp();
-      if (isSignedUp) {
-        alert('회원 가입에 성공했습니다');
-        this.showIndexPage();
-      } else {
-        alert('회원 가입에 실패했습니다');
-        this.showIndexPage();
-      }
+      console.log(this.userType.value);
+      await this.signUp();
+      this.showIndexPage();
     });
   }
 
@@ -130,7 +124,7 @@ export default class AuthScreen implements IAuthScreen {
   }
 
   async signUp() {
-    if (this.userType.value !== 'seller' || this.userType.value !== 'seller') {
+    if (this.userType.value !== 'buyer' && this.userType.value !== 'seller') {
       alert('wrong usertype');
       return false;
     }
@@ -148,12 +142,8 @@ export default class AuthScreen implements IAuthScreen {
         money: parseInt(this.money.value),
       }),
     });
-    const {isSignedUp}: {isSignedUp: boolean} = await res.json();
+    const {isSignedUp, message}: {isSignedUp: boolean; message: string} = await res.json();
+    alert(message);
     return isSignedUp;
-  }
-
-  setUserProfile(user: ILoginUser) {
-    const nickNameProfile = window.document.getElementById('nick-name');
-    nickNameProfile!.textContent = user.nickname;
   }
 }
