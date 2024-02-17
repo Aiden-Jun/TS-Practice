@@ -1,4 +1,4 @@
-import App from './store.js';
+import App from './app.js';
 
 if (typeof window !== 'undefined') {
   const app = new App();

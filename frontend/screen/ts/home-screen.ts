@@ -3,17 +3,19 @@ import {ILoginUser} from '../../specification/interfaces.js';
 export interface IHomeScreen {
   homeUI(loginUser: ILoginUser): void;
   buyerMainUI(): void;
+  setUserProfile(user: ILoginUser): void;
+  showHomePage(): void;
 }
 
 export default class HomeScreen implements IHomeScreen {
   private loggedUser: ILoginUser | undefined;
   private homePage: HTMLElement | null;
 
-  // private service: IService;
   constructor() {
     this.homePage = window.document.getElementById('home-page');
     this.loggedUser;
   }
+
   homeUI(loginUser: ILoginUser): void {
     console.log('This is main screen');
     this.loggedUser = loginUser;
@@ -21,7 +23,6 @@ export default class HomeScreen implements IHomeScreen {
       this.buyerMainUI();
     }
   }
-
   async buyerMainUI(): Promise<void> {
     // if (!this.loggedUser) {
     //   return;
