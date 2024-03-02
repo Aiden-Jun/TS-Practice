@@ -1,4 +1,4 @@
-import express, {Request, Response, NextFunction} from 'express';
+import express, {Request, Response, NextFunction, query} from 'express';
 import AuthService from './service/auth-service.js';
 const app = express();
 const port = 3000;
@@ -17,12 +17,46 @@ app.get('/', (req, res) => {
     message: 'hello',
   });
 });
+
+app.get('/products', (req, res) => {
+  console.log('hmhhhhh');
+  console.log(req.query);
+
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  if (!req.query) {
+    return res.json({
+      products: [
+        {title: 'pet monkey', price: 1, description: 'cool pet monkey'},
+        {title: 'macbook 200 inch', price: 414324, description: 'cool laptop huge'},
+      ],
+    });
+  } else {
+    const {email} = req.query;
+    return res.json({
+      products: [
+        {title: 'pet monkey', price: 1, description: 'cool pet monkey'},
+        {title: 'macbook 200 inch', price: 414324, description: 'cool laptop huge'},
+      ],
+    });
+  }
+});
+
 app.post('/login', parseBody, async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   const {email, password} = req.body;
   const loginUser = await authService.getUser(email, password);
   return res.json({user: loginUser});
 });
+
+app.post('/product', parseBody, async (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  const {title, price, description} = req.body;
+  console.log('data arrived');
+  console.log(title);
+  console.log(price);
+  console.log(description);
+});
+
 app.post('/sign-up', parseBody, async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   const {email, password, nickname, userType, money} = req.body;

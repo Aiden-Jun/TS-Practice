@@ -13,11 +13,18 @@
   background-color: #2f2fff;
 }
 
+.square-img {
+  width: 150px;
+  height: 150px;
+  border-radius: 10px;
+  display: inline-block;
+}
+
 .auth-button {
   background-color: #2f2fff;
 }
 
-.input-auth {
+.input {
   width: 200px;
   padding: 8px;
   border-radius: 5px;

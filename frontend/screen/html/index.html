@@ -21,11 +21,11 @@
     <!--Sign Up Screen-->
     <div style="text-align: center; display: none" id="sign-up-page">
       <h1>회원 가입</h1>
-      <input class="input-auth" type="email" placeholder="Email" id="email-input-signup" />
-      <input class="input-auth" type="password" placeholder="Password" id="password-input-signup" />
-      <input class="input-auth" placeholder="Nickname" id="nick-name-signup" />
-      <input class="input-auth" placeholder="Type of user (buyer/seller)" id="user-type" />
-      <input class="input-auth" type="number" placeholder="0" id="money" />
+      <input class="input" type="email" placeholder="Email" id="email-input-signup" />
+      <input class="input" type="password" placeholder="Password" id="password-input-signup" />
+      <input class="input" placeholder="Nickname" id="nick-name-signup" />
+      <input class="input" placeholder="Type of user (buyer/seller)" id="user-type" />
+      <input class="input" type="number" placeholder="0" id="money" />
       <div class="button" id="sign-up-button-in">Sign Up</div>
       <div class="button back-button" id="back-button-signup">뒤로 가기</div>
     </div>
@@ -33,18 +33,26 @@
     <!--Log in Screen-->
     <div style="text-align: center; display: none" id="login-page">
       <h1 id="login-title">Login</h1>
-      <input class="input-auth" type="email" placeholder="Email" id="email-input" />
-      <input class="input-auth" type="password" placeholder="Password" id="password-input" />
+      <input class="input" type="email" placeholder="Email" id="email-input" />
+      <input class="input" type="password" placeholder="Password" id="password-input" />
       <div class="button" id="login-button-in">Login</div>
       <div class="button back-button" id="back-button-login">뒤로 가기</div>
     </div>
 
     <!--Home screen-->
-    <div style="text-align: center; display: none" id="home-page">
+    <div style="text-align: center; display: block" id="home-page">
       <h1 id="home-title">Home Screen</h1>
       <h1 id="money-amount-home">$0</h1>
       <h2 id="nick-name">NickName</h2>
       <h3 id="user-type-home">Buyer</h3>
+
+      <div id="selling-products-list"></div>
+
+      <input class="input" placeholder="title" id="product-title-input" />
+      <input class="input" placeholder="price" id="product-price-input" />
+      <input class="input" placeholder="description" id="product-description-input" />
+
+      <div class="button" id="add-product-button">Add Product</div>
       <div class="button" id="home-logout-button">Log out</div>
     </div>
 
