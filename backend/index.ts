@@ -51,10 +51,7 @@ app.post('/login', parseBody, async (req, res) => {
 app.post('/product', parseBody, async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   const {title, price, description} = req.body;
-  console.log('data arrived');
-  console.log(title);
-  console.log(price);
-  console.log(description);
+  return res.json({product: {title, price, description}});
 });
 
 app.post('/sign-up', parseBody, async (req, res) => {

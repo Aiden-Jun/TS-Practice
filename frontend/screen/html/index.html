@@ -6,7 +6,7 @@
     <title>Store App</title>
     <link rel="stylesheet" href="../css/styles.css" />
   </head>
-  <body>
+  <body style="margin: 0; background-color: #f3f3f5; padding: 20px">
     <!--
 태그의 디스플레이 속성은 크게 2가지로 분류된다
 블록: 한 줄은 내가 다 차지한다: 마진, 보더, 패딩, 콘텐츠
@@ -40,20 +40,43 @@
     </div>
 
     <!--Home screen-->
-    <div style="text-align: center; display: block" id="home-page">
-      <h1 id="home-title">Home Screen</h1>
-      <h1 id="money-amount-home">$0</h1>
-      <h2 id="nick-name">NickName</h2>
-      <h3 id="user-type-home">Buyer</h3>
+    <div style="display: none" id="home-page">
+      <div style="position: relative">
+        <img
+          style="
+            width: 150px;
+            height: 150px;
+            border-radius: 100px;
+            object-fit: cover;
+            display: inline;
+          "
+          src="https://img.khan.co.kr/news/2023/01/02/news-p.v1.20230102.1f95577a65fc42a79ae7f990b39e7c21_P1.png" />
+        <div style="display: inline-block; position: absolute; top: 20px; padding-left: 20px">
+          <span id="home-title">Home Screen</span>
+          <br />
+          <span id="nick-name">NickName</span>
+          <br />
+          <span id="money-amount-home">$0</span>
+          <br />
+          <span id="user-type-home">Buyer</span>
+        </div>
+      </div>
 
-      <div id="selling-products-list"></div>
+      <div
+        style="height: 1px; background-color: #c5c5c5; margin-top: 30px; margin-bottom: 30px"></div>
 
-      <input class="input" placeholder="title" id="product-title-input" />
-      <input class="input" placeholder="price" id="product-price-input" />
-      <input class="input" placeholder="description" id="product-description-input" />
+      <div>
+        <input class="input" placeholder="title" id="product-title-input" />
+        <input class="input" placeholder="price" id="product-price-input" />
+        <input class="input" placeholder="description" id="product-description-input" />
+      </div>
 
       <div class="button" id="add-product-button">Add Product</div>
       <div class="button" id="home-logout-button">Log out</div>
+
+      <div id="selling-products-list"></div>
+
+      <div style="height: 500px" />
     </div>
 
     <script type="module" src="../../dist/screen/ts/index.js"></script>

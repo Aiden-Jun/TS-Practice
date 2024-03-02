@@ -19,13 +19,9 @@ export default class App {
       if (this.user === undefined) {
         alert('Bad email or password');
       } else {
-        console.log('1');
         this.authScreen.turnOff();
-        console.log('12');
         this.homeScreen.setUserProfile(this.user);
-        console.log('13');
         this.homeScreen.getSellerProducts();
-        console.log('14');
         this.homeScreen.showHomePage();
       }
     });
