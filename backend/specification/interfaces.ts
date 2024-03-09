@@ -7,6 +7,6 @@ export interface ILoginUser {
 }
 
 export interface IProduct {
-  productID: string;
-  productName: string;
+  id: string;
+  title: string;
 }

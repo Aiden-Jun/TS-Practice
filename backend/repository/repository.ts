@@ -20,7 +20,7 @@ export class Repository implements IRepository {
 
   private constructor() {
     this.userRepository = new UserRepository('users.csv');
-    this.productRepository = new ProductRepository();
+    this.productRepository = new ProductRepository('products.csv');
   }
 
   get User(): IUserRepository {

@@ -3,7 +3,7 @@ import {IProduct} from '../specification/interfaces.js';
 export interface IProductService {
   getBuyProducts(userID: string): IProduct[];
   getSellingProducts(): IProduct[];
-  buyProductUsingID(productID: string, userID: string): Boolean;
+  buyProductUsingID(id: string, userID: string): Boolean;
 }
 
 export class ProductService implements IProductService {
@@ -15,7 +15,7 @@ export class ProductService implements IProductService {
     throw new Error();
   }
 
-  buyProductUsingID(productID: string, userID: string): boolean {
+  buyProductUsingID(id: string, userID: string): boolean {
     return true;
   }
 }

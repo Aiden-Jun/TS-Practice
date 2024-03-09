@@ -20,9 +20,7 @@ export default class App {
         alert('Bad email or password');
       } else {
         this.authScreen.turnOff();
-        this.homeScreen.setUserProfile(this.user);
-        this.homeScreen.getSellerProducts();
-        this.homeScreen.showHomePage();
+        this.homeScreen.showHomePage(this.user);
       }
     });
 

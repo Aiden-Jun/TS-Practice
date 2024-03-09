@@ -1,19 +1,19 @@
 import {ILoginUser} from '../../specification/interfaces.js';
 
 export interface IHomeScreen {
-  homeUI(loginUser: ILoginUser): void;
-  buyerMainUI(): void;
-  setUserProfile(user: ILoginUser): void;
-  showHomePage(): void;
-  logout(): void;
+  showHomePage(user: ILoginUser): void;
   turnOff(): void;
+  logout(): void;
   getSellerProducts(): Promise<void>;
 }
 
 export default class HomeScreen implements IHomeScreen {
   private loggedUser: ILoginUser | undefined;
   private homePage: HTMLElement;
+  private sellerScreen: HTMLElement;
+  private buyerScreen: HTMLElement;
   private addProductButton: HTMLElement;
+  private buyProductButton: HTMLElement;
   private titleInput: HTMLInputElement;
   private priceInput: HTMLInputElement;
   private descInput: HTMLInputElement;
@@ -21,7 +21,9 @@ export default class HomeScreen implements IHomeScreen {
 
   constructor() {
     this.homePage = window.document.getElementById('home-page') as HTMLElement;
-    this.loggedUser;
+    this.sellerScreen = window.document.getElementById('seller-screen') as HTMLElement;
+    this.buyerScreen = window.document.getElementById('buyer-screen') as HTMLElement;
+    this.buyProductButton = window.document.getElementById('buy-product-button') as HTMLElement;
     this.addProductButton = window.document.getElementById('add-product-button') as HTMLElement;
     this.titleInput = window.document.getElementById('product-title-input') as HTMLInputElement;
     this.priceInput = window.document.getElementById('product-price-input') as HTMLInputElement;
@@ -33,53 +35,16 @@ export default class HomeScreen implements IHomeScreen {
     ) as HTMLElement;
   }
 
-  homeUI(loginUser: ILoginUser): void {
-    console.log('This is main screen');
-    this.loggedUser = loginUser;
-    if (this.loggedUser.userType === 'buyer') {
-      this.buyerMainUI();
+  showHomePage = (user: ILoginUser) => {
+    this.setUserProfile(user);
+    if (this.loggedUser) {
+      if (this.loggedUser.userType === 'seller') {
+        this.setSellerScreen();
+      } else {
+        this.setBuyerScreen();
+      }
     }
-  }
-  async buyerMainUI(): Promise<void> {
-    // if (!this.loggedUser) {
-    //   return;
-    // }
-    // console.log(`buyer, email:${this.loggedUser.email}`);
-    // console.log(`Money: ${this.loggedUser.money}`);
-    // const boughtProducts = this.service.Product.getBuyProducts(this.loggedUser.id);
-    // const sellingProducts = this.service.Product.getSellingProducts();
-    // for (let i = 0; i < sellingProducts.length; i++) {
-    //   const sellingProduct = sellingProducts[i];
-    //   console.log(`Products on sale: ${sellingProduct.productName}`);
-    // }
-    //
-    // console.log('=============================================');
-    // console.log();
-    //
-    // console.log();
-    // console.log('=============================================');
-    //
-    // for (let i = 0; i < boughtProducts.length; i++) {
-    //   const boughtProduct = boughtProducts[i];
-    //   console.log(`Products bought: ${boughtProduct.productID}, ${boughtProduct.productName}`);
-    // }
-    // console.log('=============================================');
-    //
-    // const productID = await inputReceiver('ID of the product you want to purchase:');
-    //
-    // if (productID === 'quit') {
-    //   process.exit();
-    // }
-    //
-    // const answered = this.service.Product.buyProductUsingID(productID, this.loggedUser.id);
-    // if (!answered) {
-    //   console.log('Buying process failed');
-    //   this.buyerMainUI();
-    // } else {
-    //   console.log('Successs');
-    //   this.buyerMainUI();
-    // }
-  }
+  };
   setUserProfile = (user: ILoginUser) => {
     const nickNameProfile = window.document.getElementById('nick-name');
     const moneyAmountHome = window.document.getElementById('money-amount-home');
@@ -88,6 +53,58 @@ export default class HomeScreen implements IHomeScreen {
     moneyAmountHome!.textContent = '$' + user.money;
     userTypeHome!.textContent = user.userType;
     this.loggedUser = user;
+  };
+  setSellerScreen = () => {
+    this.homePage.style.display = 'block';
+    this.sellerScreen.style.display = 'block';
+    this.buyerScreen.style.display = 'none';
+
+    this.addProductButton.addEventListener('click', async () => {
+      const newProduct = await this.addProduct(
+        this.titleInput.value,
+        parseInt(this.priceInput.value),
+        this.descInput.value,
+      );
+      if (!newProduct) {
+        return;
+      }
+      this.addProductCard(newProduct);
+    });
+  };
+  setBuyerScreen = async () => {
+    this.homePage.style.display = 'block';
+    this.sellerScreen.style.display = 'none';
+    this.buyerScreen.style.display = 'block';
+
+    await this.getSellingProducts();
+    this.buyProductButton.addEventListener('click', async () => {
+      console.log('물건을 사야겠습니당!');
+    });
+  };
+  turnOff = () => {
+    this.homePage.style.display = 'none';
+  };
+  logout = () => {
+    this.loggedUser = undefined;
+  };
+
+  // 상품
+  getSellingProducts = async () => {
+    if (!this.loggedUser) {
+      alert('로그인이 필요합니다');
+      return;
+    }
+
+    const res = await fetch(`http://localhost:3000/products?type=selling`, {
+      method: 'GET',
+    });
+    const {products}: {products: {title: string; price: number; description: string}[]} =
+      await res.json();
+
+    for (let i = 0; i < products.length; i++) {
+      const product = products[i];
+      this.addProductCard(product);
+    }
   };
   getSellerProducts = async () => {
     if (!this.loggedUser) {
@@ -102,57 +119,36 @@ export default class HomeScreen implements IHomeScreen {
 
     for (let i = 0; i < products.length; i++) {
       const product = products[i];
-      this.AddProductCard(product);
+      this.addProductCard(product);
     }
   };
-  showHomePage = () => {
-    if (this.homePage) {
-      this.homePage.style.display = 'block';
-      this.addProductButton.addEventListener('click', async () => {
-        console.log('gkgkgkgk');
-        const newProduct = await this.addProduct(
-          this.titleInput.value,
-          parseInt(this.priceInput.value),
-          this.descInput.value,
-        );
-        if (!newProduct) {
-          return;
-        }
-        this.AddProductCard(newProduct);
-      });
-    }
-  };
-
   addProduct = async (title: string, price: number, description: string) => {
-    console.log('!?!?!?!?');
+    if (!this.loggedUser) {
+      alert('로그인하세요');
+      return;
+    }
+
     const res = await fetch('http://localhost:3000/product', {
       method: 'POST', // GET POST PUT PATCH DELETE
       headers: {
         'content-type': 'application/x-www-form-urlencoded',
       },
       body: JSON.stringify({
+        userId: this.loggedUser.id,
         title,
         price,
         description,
       }),
     });
-
-    console.log('...?');
-    const {product}: {product: {title: string; price: number; description: string} | undefined} =
+    const {
+      product,
+      message,
+    }: {product: {title: string; price: number; description: string} | undefined; message: string} =
       await res.json();
-    console.log(product);
+    alert(message);
     return product;
   };
-
-  logout = () => {
-    this.loggedUser = undefined;
-  };
-
-  turnOff = () => {
-    this.homePage.style.display = 'none';
-  };
-
-  AddProductCard = (product: {title: string; price: number; description: string}) => {
+  addProductCard = (product: {title: string; price: number; description: string}) => {
     const nextIndex = this.sellingProductsList.getElementsByClassName('product').length;
     const margin = nextIndex % 2 === 0 ? 'margin-right' : 'margin-left';
     this.sellingProductsList.innerHTML += `<div

@@ -1,12 +1,12 @@
 export interface ILoginUser {
+  id: string;
   email: string;
   nickname: string;
-  userType: string;
   money: number;
-  id: string;
+  userType: 'seller' | 'buyer';
 }
 
 export interface IProduct {
-  productID: string;
-  productName: string;
+  id: string;
+  title: string;
 }

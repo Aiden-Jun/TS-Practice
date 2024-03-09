@@ -41,6 +41,7 @@
 
     <!--Home screen-->
     <div style="display: none" id="home-page">
+      <!--프로필-->
       <div style="position: relative">
         <img
           style="
@@ -59,22 +60,28 @@
           <span id="money-amount-home">$0</span>
           <br />
           <span id="user-type-home">Buyer</span>
+          <div class="button" id="home-logout-button" style="width: 100px">Log out</div>
         </div>
       </div>
-
       <div
         style="height: 1px; background-color: #c5c5c5; margin-top: 30px; margin-bottom: 30px"></div>
 
-      <div>
-        <input class="input" placeholder="title" id="product-title-input" />
-        <input class="input" placeholder="price" id="product-price-input" />
-        <input class="input" placeholder="description" id="product-description-input" />
+      <!--셀러 화면-->
+      <div id="seller-screen" style="display: none">
+        <div>
+          <input class="input" placeholder="title" id="product-title-input" />
+          <input class="input" placeholder="price" id="product-price-input" />
+          <input class="input" placeholder="description" id="product-description-input" />
+        </div>
+        <div class="button" id="add-product-button">Add Product</div>
+        <div id="selling-products-list"></div>
       </div>
 
-      <div class="button" id="add-product-button">Add Product</div>
-      <div class="button" id="home-logout-button">Log out</div>
-
-      <div id="selling-products-list"></div>
+      <!--구매자 화면-->
+      <div id="buyer-screen" style="display: none">
+        <div class="button" id="buy-product-button">Buy Product</div>
+        <div id="products-list"></div>
+      </div>
 
       <div style="height: 500px" />
     </div>

@@ -1,21 +1,41 @@
 import {IProduct} from '../specification/interfaces.js';
+import {Repository} from '../repository/repository.js';
 
 export interface IProductService {
-  getBuyProducts(userID: string): IProduct[];
-  getSellingProducts(): IProduct[];
-  buyProductUsingID(productID: string, userID: string): Boolean;
+  addSellerProduct(
+    userId: string,
+    title: string,
+    price: number,
+    description: string,
+  ): Promise<boolean>;
+  getBuyProducts(userID: string): Promise<IProduct[]>;
+  getSellingProducts(): Promise<IProduct[]>;
+  buyProductUsingID(id: string, userID: string): Boolean;
 }
-
 export class ProductService implements IProductService {
-  getBuyProducts(userID: string): IProduct[] {
-    throw new Error();
+  getBuyProducts(userID: string): Promise<IProduct[]> {
+    throw new Error('Method not implemented.');
   }
-
-  getSellingProducts(): IProduct[] {
-    throw new Error();
+  buyProductUsingID(id: string, userID: string): Boolean {
+    throw new Error('Method not implemented.');
   }
+  async addSellerProduct(userId: string, title: string, price: number, description: string) {
+    if (!userId || userId.trim() === '') {
+      return false;
+    }
+    if (!title || title.trim() === '') {
+      return false;
+    }
+    if (!description || description.trim() === '') {
+      return false;
+    }
 
-  buyProductUsingID(productID: string, userID: string): boolean {
+    await Repository.Instance.Product.createProduct(userId, title, price, description);
     return true;
+  }
+  async getSellingProducts() {
+    return await Repository.Instance.Product.findProducts({
+      isSelling: true,
+    });
   }
 }

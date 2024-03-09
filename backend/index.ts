@@ -1,9 +1,11 @@
 import express, {Request, Response, NextFunction, query} from 'express';
 import AuthService from './service/auth-service.js';
+import {ProductService} from './service/product-service.js';
 const app = express();
 const port = 3000;
 
 const authService = new AuthService();
+const productService = new ProductService();
 
 app.use(express.urlencoded());
 
@@ -18,26 +20,21 @@ app.get('/', (req, res) => {
   });
 });
 
-app.get('/products', (req, res) => {
-  console.log('hmhhhhh');
-  console.log(req.query);
-
+app.get('/products', async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  if (!req.query) {
+  const {type} = req.query;
+
+  if (!type) {
     return res.json({
       products: [
         {title: 'pet monkey', price: 1, description: 'cool pet monkey'},
         {title: 'macbook 200 inch', price: 414324, description: 'cool laptop huge'},
       ],
     });
-  } else {
+  } else if (type === 'selling') {
     const {email} = req.query;
-    return res.json({
-      products: [
-        {title: 'Pet monkey', price: 100, description: 'longng text monket ui cool'},
-        {title: 'macbook 200 inch', price: 414324, description: 'cool laptop huge'},
-      ],
-    });
+    const products = await productService.getSellingProducts();
+    return res.json({products});
   }
 });
 
@@ -50,8 +47,13 @@ app.post('/login', parseBody, async (req, res) => {
 
 app.post('/product', parseBody, async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  const {title, price, description} = req.body;
-  return res.json({product: {title, price, description}});
+  const {userId, title, price, description} = req.body;
+  const result = await productService.addSellerProduct(userId, title, price, description);
+  if (result) {
+    return res.json({product: {title, price, description}, message: '상품이 추가되었습니다'});
+  } else {
+    return res.json({product: undefined, message: '상품 추가에 실패했습니다. 다시 시도해주세요'});
+  }
 });
 
 app.post('/sign-up', parseBody, async (req, res) => {

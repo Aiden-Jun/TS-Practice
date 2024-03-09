@@ -5,7 +5,7 @@ export interface IBaseRepository {
 }
 
 export class BaseRepository implements IBaseRepository {
-  private fileName: string;
+  protected fileName: string;
   protected db: IDatabase;
   constructor(fileName: string) {
     this.fileName = fileName;

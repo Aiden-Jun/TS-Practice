@@ -42,9 +42,7 @@ export default class Database implements IDatabase {
   };
   appendCSV = async (filename: string, content: string) => {
     const readFile = await this.readCSV(filename);
-    console.log(readFile);
     const ID = readFile.length + 1;
-    console.log(ID);
     return new Promise<boolean>((resolve) => {
       const fileStream = fs.createWriteStream(path.join(this.dataFolderPath, filename), {
         flags: 'a',

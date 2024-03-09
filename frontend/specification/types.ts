@@ -13,8 +13,8 @@ export type TypeUser = {
 };
 
 export type TypeProduct = {
-  productID: string;
-  productName: string;
+  id: string;
+  title: string;
   productDescription: string;
   productPrice: string;
   sellingStatus: string;
