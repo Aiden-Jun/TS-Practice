@@ -51,13 +51,7 @@ app.post('/login', parseBody, async (req, res) => {
 app.post('/product', parseBody, async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   const {title, price, description} = req.body;
-<<<<<<< Updated upstream
   return res.json({product: {title, price, description}});
-=======
-  console.log(title);
-  console.log(price);
-  console.log(description);
->>>>>>> Stashed changes
 });
 
 app.post('/sign-up', parseBody, async (req, res) => {
