@@ -34,7 +34,7 @@ app.get('/products', (req, res) => {
     const {email} = req.query;
     return res.json({
       products: [
-        {title: 'pet monkey', price: 1, description: 'cool pet monkey'},
+        {title: 'Pet monkey', price: 100, description: 'longng text monket ui cool'},
         {title: 'macbook 200 inch', price: 414324, description: 'cool laptop huge'},
       ],
     });
@@ -51,7 +51,13 @@ app.post('/login', parseBody, async (req, res) => {
 app.post('/product', parseBody, async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   const {title, price, description} = req.body;
+<<<<<<< Updated upstream
   return res.json({product: {title, price, description}});
+=======
+  console.log(title);
+  console.log(price);
+  console.log(description);
+>>>>>>> Stashed changes
 });
 
 app.post('/sign-up', parseBody, async (req, res) => {

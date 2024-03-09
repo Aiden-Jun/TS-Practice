@@ -125,7 +125,7 @@ export default class AuthScreen implements IAuthScreen {
 
   async signUp() {
     if (this.userType.value !== 'buyer' && this.userType.value !== 'seller') {
-      alert('wrong usertype');
+      alert('Usertype is wrong');
       return false;
     }
 
