@@ -109,6 +109,7 @@ export default class AuthScreen implements IAuthScreen {
   }
 
   async signIn() {
+    console.log(1);
     const res = await fetch('http://localhost:3000/login', {
       method: 'POST', // GET POST PUT PATCH DELETE
       headers: {
@@ -119,6 +120,7 @@ export default class AuthScreen implements IAuthScreen {
         password: this.passwordInput.value,
       }),
     });
+    console.log(2);
     const {user}: {user: ILoginUser | undefined} = await res.json();
     return user;
   }
