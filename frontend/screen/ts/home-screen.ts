@@ -142,7 +142,6 @@ export default class HomeScreen implements IHomeScreen {
   addProductCard = (product: IProduct) => {
     const nextIndex = this.productsList.getElementsByClassName('product').length;
     const margin = nextIndex % 2 === 0 ? 'margin-right' : 'margin-left';
-    console.log(product);
     this.productsList.innerHTML += `<div
           class="product"
           style="
