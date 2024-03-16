@@ -1,10 +1,10 @@
-import {ILoginUser} from '../../specification/interfaces.js';
+import {IUser} from '../../specification/interfaces.js';
 
 export interface IAuthScreen {
   showIndexPage(): void;
   showSignInPage(): void;
   showSignUpPage(): void;
-  signIn(): Promise<ILoginUser | undefined>;
+  signIn(): Promise<IUser | undefined>;
   signUp(): Promise<boolean>;
   turnOff(): void;
 }
@@ -109,8 +109,7 @@ export default class AuthScreen implements IAuthScreen {
   }
 
   async signIn() {
-    console.log(1);
-    const res = await fetch('http://localhost:3000/login', {
+    const res = await fetch('http://localhost:3000/user/login', {
       method: 'POST', // GET POST PUT PATCH DELETE
       headers: {
         'content-type': 'application/x-www-form-urlencoded',
@@ -121,7 +120,7 @@ export default class AuthScreen implements IAuthScreen {
       }),
     });
     console.log(2);
-    const {user}: {user: ILoginUser | undefined} = await res.json();
+    const {user}: {user: IUser | undefined} = await res.json();
     return user;
   }
 
@@ -131,7 +130,7 @@ export default class AuthScreen implements IAuthScreen {
       return false;
     }
 
-    const res = await fetch('http://localhost:3000/sign-up', {
+    const res = await fetch('http://localhost:3000/user/sign-up', {
       method: 'POST', // GET POST PUT PATCH DELETE
       headers: {
         'content-type': 'application/x-www-form-urlencoded',

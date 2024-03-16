@@ -1,11 +1,11 @@
 import {IRepository, Repository} from '../repository/repository.js';
 import {IUserRepository, UserRepository} from '../repository/user-repository.js';
-import {ILoginUser} from '../specification/interfaces.js';
+import {IUser} from '../domain/user.js';
 
 export interface IAuthService {
   addUser(email: string, password: string, name: string, usertype: string, money: string): void;
 
-  getUser(email: string, password: string): Promise<ILoginUser | undefined>;
+  getUser(email: string, password: string): Promise<IUser | undefined>;
 
   doesThisEmailExist(email: string): Promise<boolean>;
 }
@@ -34,7 +34,7 @@ export default class AuthService implements IAuthService {
     userRepository.createUser(email, password, name, userType, money);
   }
 
-  async getUser(email: string, password: string): Promise<ILoginUser | undefined> {
+  async getUser(email: string, password: string): Promise<IUser | undefined> {
     const user = await this.userRepository.findUserByEmailAndPassword(email, password);
     if (user === undefined) {
       return;

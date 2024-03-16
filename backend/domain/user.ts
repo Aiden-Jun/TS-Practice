@@ -1,10 +1,10 @@
-import {ILoginUser} from '../specification/interfaces.js';
 import {TypeUser} from '../specification/types.js';
 
-export interface IUser {
+// 서비스
+export interface IUserDomain {
   get Email(): string;
 }
-export default class User implements IUser {
+export default class UserDomain implements IUserDomain {
   private email: string;
   private userID: string;
   private password: string;
@@ -33,7 +33,7 @@ export default class User implements IUser {
     return this.nickname;
   }
 
-  get LoginUser(): ILoginUser {
+  get LoginUser(): IUser {
     const loginUser = {
       email: this.email,
       nickname: this.nickname,
@@ -43,4 +43,13 @@ export default class User implements IUser {
     };
     return loginUser;
   }
+}
+
+// 클라이언트
+export interface IUser {
+  email: string;
+  nickname: string;
+  userType: string;
+  money: number;
+  id: string;
 }

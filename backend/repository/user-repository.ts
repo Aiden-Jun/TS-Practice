@@ -1,22 +1,22 @@
-import User from '../domain/user.js';
+import UserDomain from '../domain/user.js';
 import {TypeUser} from '../specification/types.js';
 import {BaseRepository} from './base-repository.js';
 
 export interface IUserRepository {
   createUser(email: string, password: string, name: string, userType: string, money: string): void;
-  findUserByEmail(email: string): Promise<User | undefined>;
-  findUserByID(id: string): Promise<User | undefined>;
-  findUserByEmailAndPassword(email: string, password: string): Promise<User | undefined>;
+  findUserByEmail(email: string): Promise<UserDomain | undefined>;
+  findUserByID(id: string): Promise<UserDomain | undefined>;
+  findUserByEmailAndPassword(email: string, password: string): Promise<UserDomain | undefined>;
 }
 
 export class UserRepository extends BaseRepository implements IUserRepository {
-  findUserByID(id: string): Promise<User | undefined> {
+  findUserByID(id: string): Promise<UserDomain | undefined> {
     throw new Error('Method not implemented.');
   }
   public async findUserByEmailAndPassword(
     email: string,
     password: string,
-  ): Promise<User | undefined> {
+  ): Promise<UserDomain | undefined> {
     const userRows = await this.db.readCSV<TypeUser>('users.csv');
     console.log(userRows);
     for (let i = 0; i < userRows.length; i++) {
@@ -51,6 +51,6 @@ export class UserRepository extends BaseRepository implements IUserRepository {
   }
 
   public convertUserFromRowToObject(userRow: TypeUser) {
-    return new User(userRow);
+    return new UserDomain(userRow);
   }
 }

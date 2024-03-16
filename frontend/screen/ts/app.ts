@@ -1,13 +1,13 @@
 import AuthScreen, {IAuthScreen} from './auth-screen.js';
 import HomeScreen, {IHomeScreen} from './home-screen.js';
-import {ILoginUser} from '../../specification/interfaces.js';
+import {IUser} from '../../specification/interfaces.js';
 
 export default class App {
   private authScreen: IAuthScreen;
   private homeScreen: IHomeScreen;
   private loginButtonIn: HTMLElement;
   private logOutButton: HTMLElement;
-  private user: ILoginUser | undefined;
+  private user: IUser | undefined;
 
   constructor() {
     this.authScreen = new AuthScreen();
@@ -23,7 +23,6 @@ export default class App {
         this.homeScreen.showHomePage(this.user);
       }
     });
-
     this.logOutButton.addEventListener('click', () => {
       this.homeScreen.logout();
       this.authScreen.showIndexPage();

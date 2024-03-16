@@ -1,9 +1,10 @@
 import {BaseRepository} from './base-repository.js';
-import {IProduct} from '../specification/interfaces.js';
+import Product, {IProductDomain, IProductEntity} from '../domain/product.js';
+import ProductDomain from '../domain/product.js';
 
 export interface IProductRepository {
   createProduct(userId: string, title: string, price: number, description: string): Promise<void>;
-  findProduct({productId}: {productId: string}): Promise<IProduct[] | []>;
+  findProduct({productId}: {productId: string}): Promise<IProductDomain[] | []>;
   findProducts({
     sellerId,
     buyerId,
@@ -12,7 +13,7 @@ export interface IProductRepository {
     sellerId?: string;
     buyerId?: string;
     isSelling?: boolean;
-  }): Promise<IProduct[] | []>;
+  }): Promise<IProductDomain[] | []>;
   updateProduct({
     productId,
     updated: {title, price, description, sellerId, buyerId, isSelling},
@@ -26,17 +27,17 @@ export interface IProductRepository {
       buyerId?: string;
       isSelling?: boolean;
     };
-  }): Promise<IProduct | undefined>;
+  }): Promise<IProductDomain | undefined>;
   deleteProduct(
     productId: string,
     sellerId: string,
     buyerId: string,
     isSelling: boolean,
-  ): Promise<IProduct | undefined>;
+  ): Promise<IProductDomain | undefined>;
 }
 
 export class ProductRepository extends BaseRepository implements IProductRepository {
-  findProduct({productId}: {productId: string}): Promise<[] | IProduct[]> {
+  findProduct({productId}: {productId: string}): Promise<[] | IProductDomain[]> {
     throw new Error('Method not implemented.');
   }
   updateProduct({
@@ -52,7 +53,7 @@ export class ProductRepository extends BaseRepository implements IProductReposit
       buyerId?: string | undefined;
       isSelling?: boolean | undefined;
     };
-  }): Promise<IProduct | undefined> {
+  }): Promise<IProductDomain | undefined> {
     throw new Error('Method not implemented.');
   }
   async createProduct(userId: string, title: string, price: number, description: string) {
@@ -72,9 +73,12 @@ export class ProductRepository extends BaseRepository implements IProductReposit
       return [];
     } else if (buyerId) {
       return [];
-    } else if (isSelling === true) {
-      return [];
-    } else if (isSelling === false) {
+    } else if (isSelling) {
+      const productEntities = await this.db.readCSV<IProductEntity>(this.fileName);
+      return productEntities.map(
+        (v) => new ProductDomain(v.id, v.title, v.description, v.sellerId, v.buyerId, v.isSelling),
+      );
+    } else if (!isSelling) {
       return [];
     }
     return [];
@@ -85,7 +89,7 @@ export class ProductRepository extends BaseRepository implements IProductReposit
     sellerId: string,
     buyerId: string,
     isSelling: boolean,
-  ): Promise<IProduct | undefined> {
+  ): Promise<IProductDomain | undefined> {
     throw new Error('Method not implemented.');
   }
 }

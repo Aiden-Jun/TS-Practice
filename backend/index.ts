@@ -1,7 +1,6 @@
 import express, {Request, Response, NextFunction} from 'express';
 import AuthService from './service/auth-service.js';
 import {ProductService} from './service/product-service.js';
-import 'dotenv/config';
 
 const port = parseInt(process.env.PORT ?? '3000');
 const authService = new AuthService();
@@ -9,7 +8,6 @@ const productService = new ProductService();
 
 // middleware
 const setHeader = (req: Request, res: Response, next: NextFunction) => {
-  console.log(process.env.CLIENT_HOST);
   res.setHeader('Access-Control-Allow-Origin', process.env.CLIENT_HOST ?? '*');
   next();
 };
@@ -20,11 +18,6 @@ const parseBody = (req: Request, res: Response, next: NextFunction) => {
 
 const app = express();
 app.use(express.urlencoded());
-
-// test
-app.post('/', async (req, res) => {
-  return res.json({msg: 'hello'});
-});
 
 // user
 app.post('/user/login', setHeader, parseBody, async (req, res) => {
@@ -56,7 +49,6 @@ app.get('/products', setHeader, async (req, res) => {
       ],
     });
   } else if (type === 'selling') {
-    const {email} = req.query;
     const products = await productService.getSellingProducts();
     return res.json({products});
   }

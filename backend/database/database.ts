@@ -29,8 +29,8 @@ export default class Database implements IDatabase {
       const results: T[] = [];
       fs.createReadStream(path.join(this.dataFolderPath, filename))
         .pipe(csvParser())
-        .on('data', (data: T) => {
-          results.push(data);
+        .on('data', (data: any) => {
+          results.push(data as T);
         })
         .on('end', () => {
           resolve(results);

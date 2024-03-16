@@ -1,5 +1,5 @@
-import {IProduct} from '../specification/interfaces.js';
 import {Repository} from '../repository/repository.js';
+import {IProduct} from '../domain/product.js';
 
 export interface IProductService {
   addSellerProduct(
@@ -34,8 +34,9 @@ export class ProductService implements IProductService {
     return true;
   }
   async getSellingProducts() {
-    return await Repository.Instance.Product.findProducts({
+    const products = await Repository.Instance.Product.findProducts({
       isSelling: true,
     });
+    return products.map((v) => v.Convert());
   }
 }

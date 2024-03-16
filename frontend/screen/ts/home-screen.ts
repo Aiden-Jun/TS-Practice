@@ -1,14 +1,15 @@
-import {ILoginUser} from '../../specification/interfaces.js';
+import {IProduct, IUser} from '../../specification/interfaces.js';
+import {getSellingProducts} from './external.js';
 
 export interface IHomeScreen {
-  showHomePage(user: ILoginUser): void;
+  showHomePage(user: IUser): void;
   turnOff(): void;
   logout(): void;
   getSellerProducts(): Promise<void>;
 }
 
 export default class HomeScreen implements IHomeScreen {
-  private loggedUser: ILoginUser | undefined;
+  private loggedUser: IUser | undefined;
   private homePage: HTMLElement;
   private sellerScreen: HTMLElement;
   private buyerScreen: HTMLElement;
@@ -17,7 +18,7 @@ export default class HomeScreen implements IHomeScreen {
   private titleInput: HTMLInputElement;
   private priceInput: HTMLInputElement;
   private descInput: HTMLInputElement;
-  private sellingProductsList: HTMLElement;
+  private productsList: HTMLElement;
 
   constructor() {
     this.homePage = window.document.getElementById('home-page') as HTMLElement;
@@ -30,22 +31,20 @@ export default class HomeScreen implements IHomeScreen {
     this.descInput = window.document.getElementById(
       'product-description-input',
     ) as HTMLInputElement;
-    this.sellingProductsList = window.document.getElementById(
-      'selling-products-list',
-    ) as HTMLElement;
+    this.productsList = window.document.getElementById('products-list') as HTMLElement;
   }
 
-  showHomePage = (user: ILoginUser) => {
+  showHomePage = async (user: IUser) => {
     this.setUserProfile(user);
     if (this.loggedUser) {
       if (this.loggedUser.userType === 'seller') {
         this.setSellerScreen();
       } else {
-        this.setBuyerScreen();
+        await this.setBuyerScreen();
       }
     }
   };
-  setUserProfile = (user: ILoginUser) => {
+  setUserProfile = (user: IUser) => {
     const nickNameProfile = window.document.getElementById('nick-name');
     const moneyAmountHome = window.document.getElementById('money-amount-home');
     const userTypeHome = window.document.getElementById('user-type-home');
@@ -72,11 +71,24 @@ export default class HomeScreen implements IHomeScreen {
     });
   };
   setBuyerScreen = async () => {
+    if (!this.loggedUser) {
+      alert('로그인이 필요합니다');
+      return;
+    }
+
     this.homePage.style.display = 'block';
     this.sellerScreen.style.display = 'none';
     this.buyerScreen.style.display = 'block';
 
-    await this.getSellingProducts();
+    console.log('?????');
+    const products = await getSellingProducts();
+    console.log('....');
+    console.log(products.length);
+    for (let i = 0; i < products.length; i++) {
+      const product = products[i];
+      this.addProductCard(product);
+    }
+
     this.buyProductButton.addEventListener('click', async () => {
       console.log('물건을 사야겠습니당!');
     });
@@ -89,23 +101,7 @@ export default class HomeScreen implements IHomeScreen {
   };
 
   // 상품
-  getSellingProducts = async () => {
-    if (!this.loggedUser) {
-      alert('로그인이 필요합니다');
-      return;
-    }
 
-    const res = await fetch(`http://localhost:3000/products?type=selling`, {
-      method: 'GET',
-    });
-    const {products}: {products: {title: string; price: number; description: string}[]} =
-      await res.json();
-
-    for (let i = 0; i < products.length; i++) {
-      const product = products[i];
-      this.addProductCard(product);
-    }
-  };
   getSellerProducts = async () => {
     if (!this.loggedUser) {
       return;
@@ -114,8 +110,7 @@ export default class HomeScreen implements IHomeScreen {
     const res = await fetch(`http://localhost:3000/products?email=${this.loggedUser.email}`, {
       method: 'GET', // GET POST PUT PATCH DELETE
     });
-    const {products}: {products: {title: string; price: number; description: string}[]} =
-      await res.json();
+    const {products}: {products: IProduct[]} = await res.json();
 
     for (let i = 0; i < products.length; i++) {
       const product = products[i];
@@ -140,18 +135,15 @@ export default class HomeScreen implements IHomeScreen {
         description,
       }),
     });
-    const {
-      product,
-      message,
-    }: {product: {title: string; price: number; description: string} | undefined; message: string} =
-      await res.json();
+    const {product, message}: {product: IProduct | undefined; message: string} = await res.json();
     alert(message);
     return product;
   };
-  addProductCard = (product: {title: string; price: number; description: string}) => {
-    const nextIndex = this.sellingProductsList.getElementsByClassName('product').length;
+  addProductCard = (product: IProduct) => {
+    const nextIndex = this.productsList.getElementsByClassName('product').length;
     const margin = nextIndex % 2 === 0 ? 'margin-right' : 'margin-left';
-    this.sellingProductsList.innerHTML += `<div
+    console.log(product);
+    this.productsList.innerHTML += `<div
           class="product"
           style="
             display: inline-block;
@@ -167,7 +159,7 @@ export default class HomeScreen implements IHomeScreen {
           <div style="position: relative; text-align: left; font-size: 15px; padding: 10px; height: 120px">
             <span style="font-size: 15px; font-weight: bold; color: #212121">${product.title}</span>
             <br>
-            <span style="font-size: 13px; font-weight: bold; color: #565656">${product.price}원</span>
+            <span style="font-size: 13px; font-weight: bold; color: #565656">${product.description}원</span>
             <br>
             <div style="margin-top: 10px">
               <span style="font-size: 13px; font-weight: normal; color: #000000">

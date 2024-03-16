@@ -1,12 +1,18 @@
-export interface ILoginUser {
-  id: string;
+// 클라이언트
+export interface IUser {
   email: string;
   nickname: string;
+  userType: string;
   money: number;
-  userType: 'seller' | 'buyer';
+  id: string;
 }
 
+// 클라이언트
 export interface IProduct {
-  id: string;
+  id: number;
   title: string;
+  description: string;
+  sellerId: number;
+  buyerId: number | null;
+  isSelling: boolean;
 }
